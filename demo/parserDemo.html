@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>GIL Parser Demo (v0.0.1)</title>
+        <script src="SugarParser.js"></script>
+        <style>
+            #codeEntry {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 40%;
+                height: 100%;
+                overflow-y: scroll;
+            }
+
+            #renderPane {
+                position: absolute;
+                right: 0;
+                top: 0;
+                width: 55%;
+                height: 100%;
+                overflow-y: scroll;
+            }
+        </style>
+    </head>
+
+    <body>
+        <textarea id="codeEntry"></textarea>
+
+        <pre id="renderPane"></pre>
+
+        <script>
+        const codeEntry = document.querySelector('#codeEntry');
+        const renderPane = document.querySelector('#renderPane');
+
+        codeEntry.addEventListener('keyup', (e) => {
+            try {
+                renderPane.innerHTML = JSON.stringify(SugarParser.parse(codeEntry.value), null, 4);
+            } catch (e) {
+                /* Do nothing. */
+            }
+        });
+        </script>
+    </body>
+</html>

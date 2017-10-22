@@ -1,0 +1,50 @@
+{
+  "name": "twine-linter",
+  "version": "0.0.1",
+  "description": "A basic static analysis tool for Twine, compatible with the Sugarcane, Sugarcube, Harlowe, and Gately formats.",
+  "main": "index.js",
+  "scripts": {
+    "build": "node_modules/.bin/webpack -p",
+    "lint": "node_modules/.bin/eslint .",
+    "test": "node_modules/.bin/jest",
+    "build-parser": "node_modules/.bin/pegjs -o src/PEG/SugarParser.js src/PEG/sugar.pegjs && node_modules/.bin/pegjs -o GatelyParser.js src/PEG/gately.pegjs && node_modules/.bin/pegjs -o src/PEG/HarloweParser.js src/PEG/harlowe.pegjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/furkle/twine-linter.git"
+  },
+  "keywords": [
+    "twine",
+    "twine2",
+    "lint",
+    "linter",
+    "linting",
+    "harlowe",
+    "sugarcane",
+    "sugarcube",
+    "gately"
+  ],
+  "author": "furkle",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/furkle/twine-linter/issues"
+  },
+  "homepage": "https://github.com/furkle/twine-linter#readme",
+  "devDependencies": {
+    "awesome-typescript-loader": "^3.2.3",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.1",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-typescript": "^7.0.0-beta.3",
+    "jest": "^21.2.1",
+    "source-map-loader": "^0.2.2",
+    "typescript": "^2.5.3",
+    "webpack": "^3.8.1"
+  },
+  "dependencies": {
+    "@types/node": "^8.0.46",
+    "pegjs": "^0.10.0"
+  }
+}
