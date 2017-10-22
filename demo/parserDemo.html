@@ -9,7 +9,7 @@
                 left: 0;
                 top: 0;
                 width: 40%;
-                height: 100%;
+                height: 90%;
                 overflow-y: scroll;
             }
 
@@ -18,8 +18,15 @@
                 right: 0;
                 top: 0;
                 width: 55%;
-                height: 100%;
+                height: 90%;
                 overflow-y: scroll;
+            }
+
+            #message {
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                height: 9%;
             }
         </style>
     </head>
@@ -29,15 +36,22 @@
 
         <pre id="renderPane"></pre>
 
+        <div id="message"></div>
         <script>
         const codeEntry = document.querySelector('#codeEntry');
         const renderPane = document.querySelector('#renderPane');
+        const message = document.querySelector('#message');
 
         codeEntry.addEventListener('keyup', (e) => {
             try {
                 renderPane.innerHTML = JSON.stringify(SugarParser.parse(codeEntry.value), null, 4);
+                message.textContent = 'Parsed successfully.';
             } catch (e) {
-                /* Do nothing. */
+                console.log(e);
+                message.textContent = `Parse failed at line ` +
+                    `${e.location.start.line} and column ` +
+                    `${e.location.start.column}. ` +
+                    `${e.message}`;
             }
         });
         </script>
