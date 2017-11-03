@@ -3025,6 +3025,13 @@ function peg$parse(input, options) {
   }
 }
 
-window.SugarParser = {
-  parse: peg$parse,
-};
+if (typeof module === 'object') {
+  module.exports = {
+    default: peg$parse,
+    parse:   peg$parse,
+  };
+} else {
+  window.SugarParser = {
+    parse: peg$parse,
+  };
+}

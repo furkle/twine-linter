@@ -44,7 +44,8 @@
 
         codeEntry.addEventListener('keyup', (e) => {
             try {
-                renderPane.innerHTML = JSON.stringify(SugarParser.parse(codeEntry.value), null, 4);
+                const ast = SugarParser.parse(codeEntry.value);
+                renderPane.innerHTML = JSON.stringify(ast, null, 4);
                 message.textContent = 'Parsed successfully.';
             } catch (e) {
                 console.log(e);

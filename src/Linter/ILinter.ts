@@ -1,21 +1,14 @@
-import ICompiler from '../Compiler/ICompiler';
+import IElementLike    from '../NodeLike/ParentNodeLike/ElementLike/IElementLike';
+import IParser         from '../Parser/IParser';
+import ITask           from '../Task/ITask';
+import TPassageIgnores from '../TypeAliases/TPassageIgnores';
 interface ILinter {
-    readonly compiler: ICompiler;
-    readonly definitionDetectionRegexps: object;
-    readonly format: string;
-    readonly formatAttribute: string;
-    readonly formatDetectionRegexps: {
-        [key: string]: RegExp,
-    };
-
-    readonly formats: object;
-    readonly passageIgnoreDefaults: {
-        elementTags: Array<string>,
-        passageNames: Array<string>,
-        passageTags: Array<string>,
-    };
-
-    readonly storyData: Element | Array<Element>;
+  readonly parser:           IParser;
+  readonly format:           string;
+  readonly version:          string;
+  readonly passageIgnores:   TPassageIgnores;
+  readonly storyData:        IElementLike;
+  lint(tasks: Array<ITask>): any;
 }
 
 export default ILinter;

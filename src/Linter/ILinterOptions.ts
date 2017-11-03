@@ -1,14 +1,10 @@
-interface IOptions {
-    readonly definitionDetectionRegexps?: object;
-    readonly format?: string;
-    readonly formatAttribute?: string;
-    readonly formatDetectionRegexps?: {
-        [key: string]: RegExp,
-    };
-    readonly formats?: Array<string>;
-    readonly passageIgnoreDefaults?: {
-        [key: string]: Array<string>,
-    };
+import TDetectionMode  from '../TypeAliases/TDetectionMode';
+import TPassageIgnores from '../TypeAliases/TPassageIgnores';
+interface ILinterOptions {
+  format?:         string;
+  version?:        string;
+  passageIgnores?: TPassageIgnores;
+  detectionMode?:  TDetectionMode;
 }
 
-export default IOptions;
+export default ILinterOptions;

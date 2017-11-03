@@ -4,7 +4,7 @@
   "description": "A basic static analysis tool for Twine, compatible with the Sugarcane, Sugarcube, Harlowe, and Gately formats.",
   "main": "index.js",
   "scripts": {
-    "build": "node_modules/.bin/webpack -p",
+    "build": "node_modules/.bin/webpack -p --display-error-details",
     "lint": "node_modules/.bin/eslint .",
     "test": "node_modules/.bin/jest",
     "build-parser": "node_modules/.bin/pegjs -o src/PEG/SugarParser.js src/PEG/sugar.pegjs && node_modules/.bin/pegjs -o GatelyParser.js src/PEG/gately.pegjs && node_modules/.bin/pegjs -o src/PEG/HarloweParser.js src/PEG/harlowe.pegjs"
@@ -40,11 +40,15 @@
     "babel-preset-typescript": "^7.0.0-beta.3",
     "jest": "^21.2.1",
     "source-map-loader": "^0.2.2",
+    "ts-loader": "^3.1.0",
     "typescript": "^2.5.3",
     "webpack": "^3.8.1"
   },
   "dependencies": {
     "@types/node": "^8.0.46",
-    "pegjs": "^0.10.0"
+    "immutable": "^3.8.2",
+    "nwmatcher": "^1.4.3",
+    "pegjs": "^0.10.0",
+    "semver": "^5.4.1"
   }
 }

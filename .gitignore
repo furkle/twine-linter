@@ -1,3 +1,5 @@
-.DS_Store
+dist/
 node_modules/
+tsdist/
+.DS_Store
 .vscode/

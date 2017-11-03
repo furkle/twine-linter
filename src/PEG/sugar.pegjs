@@ -1,6 +1,6 @@
 start = allGlobalTypes*
 
-allGlobalTypes = linkLiteral / comment / elem / function / variable / text
+allGlobalTypes = linkLiteral / comment / elem / invocation / variable / text
 
 any = .
 ws 'whitespace' = [\n\r\t ]
@@ -30,7 +30,7 @@ string = doubleQuote text:$doubleQuoteCharacter* doubleQuote {
 }
 
 bareString
-	= text:$funcNameChar+ {
+	= text:$invokeNameChar+ {
     	return {
         	type: 'string',
             subtype: 'bare',
@@ -67,7 +67,7 @@ unescaped = [\x20-\x21\x23-\x5B\x5D-\u10FFFF]
 escapeCharacter = "\\"
 HEXDIG = [0-9a-f]i
 
-funcNameChar = [^\n\r\t <>/$,=|]
+invokeNameChar = [^\n\r\t <>/$,=|]
 
 linkLiteral
 	= linkOpen
@@ -118,7 +118,7 @@ linkTextItem
 	= comment /
     elem /
     variable /
-    function /
+    invocation /
     text:$(!linkTextEnder any)+
 
 linkTextEnder = '->' / '|' / ']' / '<' elemKeyChar
@@ -230,13 +230,13 @@ elemOpen = elemOpenChar elemTag ws* elemAttr* elemCloseChar
 elemContents = allGlobalTypes*
 elemClose = elemOpenChar '/' elemTag ws* elemCloseChar
 
-funcOpen 'functionOpen' = '<<'
-funcClose 'functionClose' = '>>'
+invokeOpen 'invocationOpen' = '<<'
+invokeClose 'invocationClose' = '>>'
 
-funcName = $funcNameChar+
+invokeName = $invokeNameChar+
 
 variableOpen 'variableOpener' = "$"
-variable = variableOpen varName:$funcNameChar+ {
+variable = variableOpen varName:$invokeNameChar+ {
 	return {
     	type: 'variable',
         name: varName,
@@ -244,8 +244,8 @@ variable = variableOpen varName:$funcNameChar+ {
 }
 
 arg "argument"
-	= arg:(function / string / number / variable / bareString) (ws* comma ws* / ws+)?  {
-    	if (arg.type === 'function') {
+	= arg:(invocation / string / number / variable / bareString) (ws* comma ws* / ws+)?  {
+    	if (arg.type === 'invocation') {
         	return arg;
         }
 
@@ -261,29 +261,29 @@ arg "argument"
         return arg;
     }
 
-function = withBodyFunction / withoutBodyFunction
+invocation = withBodyInvocation / withBodyInvocation
 
-withoutBodyFunction
-	= funcOpen funcName:funcName ws* args:arg* funcClose {
+withBodyInvocation
+	= invokeOpen invokeName:invokeName ws* args:arg* invokeClose {
     	return {
-            type: 'function',
+            type: 'invocation',
             subtype: 'withoutBody',
-            name: funcName,
+            name: invokeName,
         	arguments: args,
             children: [],
         };
     }
 
-withBodyFunction
+withBodyInvocation
 	/* <<foo bar "baz", 'bux' 2>>whatever<</foo>>
      * <<foo bar "baz", 'bux' 2>>     whatever      <<        / | end      foo      >>
      */
-	= func:withoutBodyFunction children:allGlobalTypes* funcOpen ('/' / 'end') funcName funcClose {
+	= invoke:withBodyInvocation children:allGlobalTypes* invokeOpen ('/' / 'end') invokeName invokeClose {
 		return {
-			type: 'function',
+			type: 'invocation',
 			subtype: 'withBody',
-			functionName: func.name,
-			arguments: func.arguments,
+			functionName: invoke.name,
+			arguments: invoke.arguments,
 			children,
 		};
 	}

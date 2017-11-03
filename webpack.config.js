@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
   // Here the application starts executing
   // and webpack starts bundling
-  entry: path.resolve(__dirname, 'src/Linter/Linter.ts'), // string | object | array
+  entry: path.resolve(__dirname, 'src/export.ts'), // string | object | array
 
   // options related to how webpack emits results
   output: {
@@ -18,6 +18,10 @@ module.exports = {
     library: 'TwineLinter', // string,
   },
 
+  resolve: {
+    extensions: [ '.ts', '.tsx', '.js', '.jsx', ],
+  },
+
   module: {
     // configuration regarding modules
     rules: [
@@ -30,25 +34,23 @@ module.exports = {
         // - Use RegExp only in test and for filename matching
         // - Use arrays of absolute paths in include and exclude
         // - Try to avoid exclude and prefer include
-        test: /\.tsx?$/,
-        include: [path.resolve(__dirname, 'src')],
+        test: /\.(j|t)sx?$/,
+        include: [ path.resolve(__dirname, 'src'), ],
 
         // the loader which should be applied, it'll be resolved relative to the context
         // -loader suffix is no longer optional in webpack2 for clarity reasons
         // see webpack 1 upgrade guide
-        loader: 'awesome-typescript-loader',
-
-        // options for the loader
+        loader: 'babel-loader',
         options: {
-          presets: ['typescript'],
+          presets: [ 'env', ],
         },
       },
 
       {
-        enforce: 'pre',
-        test: /\.js$/,
-        include: [path.resolve(__dirname, 'src')],
-        loader: 'source-map-loader',
+        test: /\.(j|t)sx?$/,
+        include: [ path.resolve(__dirname, 'src'), ],
+        loader: 'awesome-typescript-loader',
+        options: 'typescript',
       },
     ],
   },
@@ -59,7 +61,9 @@ module.exports = {
     maxEntrypointSize: 400000, // int (in bytes)
     assetFilter(assetFilename) {
       // Function predicate that provides asset filenames
-      return assetFilename.endsWith('.css') || assetFilename.endsWith('.js');
+      return assetFilename.endsWith('.css') ||
+        assetFilename.endsWith('.js') ||
+        assetFilename.endsWith('.ts');
     },
   },
 
