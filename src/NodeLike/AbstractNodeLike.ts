@@ -4,7 +4,6 @@ import IElementLike                  from './ParentNodeLike/ElementLike/IElement
 import IParentNodeLike               from './ParentNodeLike/IParentNodeLike';
 import isIChildNodeLike              from '../TypeGuards/isIChildNodeLike';
 import isIDocumentLike               from '../TypeGuards/isIDocumentLike';
-import isIParentNodeLike             from '../TypeGuards/isIParentNodeLike';
 import INodeLike                     from './INodeLike';
 import INonDocumentTypeChildNodeLike from './INonDocumentTypeChildNodeLike';
 import { OrderedSet, }     from 'immutable';
@@ -21,16 +20,16 @@ abstract class AbstractNodeLike implements INodeLike {
   abstract readonly childNodes:      Array<IChildNodeLike>;
   abstract readonly firstChild:      IChildNodeLike | null;
   abstract readonly lastChild:       IChildNodeLike | null;
-  
+
   protected __ownerDocument:         IDocumentLike | null = null;
   protected __parentNode:            IParentNodeLike | null = null;
   protected __previousSibling:       IChildNodeLike | null = null;
   protected __nextSibling:           INonDocumentTypeChildNodeLike | null = null;
   protected __childNodes:            OrderedSet<IChildNodeLike> = OrderedSet([]);
-  
+
   abstract cloneNode(deep: boolean):               INodeLike;
   abstract appendChild(child: IChildNodeLike):     IChildNodeLike;
-  
+
   abstract removeChild(child: IChildNodeLike):     IChildNodeLike;
 
   abstract insertBefore(
@@ -41,9 +40,6 @@ abstract class AbstractNodeLike implements INodeLike {
     oldNode: IChildNodeLike,
     newNode: IChildNodeLike):                      IChildNodeLike;
 
-  abstract normalize():                            void;
-
-
   readonly ELEMENT_NODE:                            1  = 1;
   readonly TEXT_NODE:                               3  = 3;
   readonly PROCESSING_INSTRUCTION_NODE:             7  = 7;
@@ -51,29 +47,6 @@ abstract class AbstractNodeLike implements INodeLike {
   readonly DOCUMENT_NODE:                           9  = 9;
   readonly DOCUMENT_TYPE_NODE:                      10 = 10;
   readonly DOCUMENT_FRAGMENT_NODE:                  11 = 11;
-
-  getDescendantNodes(): Array<IChildNodeLike> {
-    return this.__childNodes
-      .map((node: IChildNodeLike) => {
-        return [ node, ].concat(node.getDescendantNodes());
-      }).reduce((previousArray: Array<IChildNodeLike>, nextArray: Array<IChildNodeLike>) => {
-        return previousArray.concat(nextArray);
-      });
-  }
-
-  getDescendants(): Array<IElementLike> {
-    if (!isIParentNodeLike(this)) {
-      throw new Error('This node is not a parent node, and therefore cannot ' +
-                      'have children.');
-    }
-
-    return this.children
-      .map((element) => {
-        return [ element, ].concat(element.getDescendants());
-      }).reduce((previousArray, nextArray) => {
-        return previousArray.concat(nextArray);
-      });
-  }
 
   contains(node: IChildNodeLike): boolean {
     return __recurse(this, node);
@@ -131,6 +104,10 @@ abstract class AbstractNodeLike implements INodeLike {
     return node === this;
   }
 
+  normalize(): void {
+    return;
+  }
+
   __setDocument(document: IDocumentLike): IDocumentLike {
     if (isIDocumentLike(this)) {
       throw new Error('A document cannot be owned by a document.');
@@ -146,10 +123,9 @@ abstract class AbstractNodeLike implements INodeLike {
     }
 
     if (parentNode) {
-      if ((isIDocumentLike(parentNode) && parentNode !== this.ownerDocument) ||
-        parentNode !== this.ownerDocument)
+      if ((isIDocumentLike(parentNode) && parentNode !== this.__ownerDocument) ||
+        (!isIDocumentLike(parentNode) && parentNode.ownerDocument !== this.__ownerDocument))
       {
-        console.log(parentNode);
         throw new Error('A node must be adopted before it can be placed in a ' +
                         'new document.');
       } else if (isIChildNodeLike(this) &&

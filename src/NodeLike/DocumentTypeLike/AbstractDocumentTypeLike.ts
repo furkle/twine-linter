@@ -55,8 +55,16 @@ abstract class AbstractDocumentTypeLike extends MChildNodeLike(<TConstructor<Abs
   }
 
   removeChild(child: INonDocumentTypeChildNodeLike): INonDocumentTypeChildNodeLike {
-    /* Get rid of VS not-used error/ */child;
+    /* Get rid of VS not-used error. */child;
     throw new Error('A document type node cannot have child nodes.');
+  }
+
+  insertBefore(
+    referenceNode: INonDocumentTypeChildNodeLike,
+    newNode: INonDocumentTypeChildNodeLike): INonDocumentTypeChildNodeLike
+  {
+    /* Get rid of VS not-used error. */referenceNode;newNode;
+    throw new Error('A document type cannot have any children.');
   }
 
   before(...contents: Array<IChildNodeLike | string>): void {
@@ -70,11 +78,9 @@ abstract class AbstractDocumentTypeLike extends MChildNodeLike(<TConstructor<Abs
       throw new Error('This node has no parent node and therefore nothing can be added after it.');
     } else if (contents.length > 1) {
       throw new Error('Only one root element can be added to a document.');
-    } else if (isIElementLike(parent.firstChild)) {
+    } else if (isIElementLike(parent.firstElementChild)) {
       throw new Error('Only one root element can be added to a document and one ' +
                       'already exists within it.');
-    } else if (contents[0].tagName !== 'html') {
-      throw new Error('Only an html element can be added as a root element.');
     }
 
     parent.appendChild(contents[0]);
@@ -88,9 +94,12 @@ abstract class AbstractDocumentTypeLike extends MChildNodeLike(<TConstructor<Abs
     return super.isEqualNode(node);
   }
 
-  /* Cannot have child nodes, so this is a no-op. */
-  normalize(): void {
-    return;
+  replaceChild(
+    oldChild: INonDocumentTypeChildNodeLike,
+    newChild: INonDocumentTypeChildNodeLike): INonDocumentTypeChildNodeLike
+  {
+    /* Get rid of VS not-used error. */oldChild;newChild;
+    throw new Error('Document type nodes cannot have children.');
   }
 
   __setParentNode(document: IDocumentLike): IDocumentLike {

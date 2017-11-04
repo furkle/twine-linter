@@ -6,6 +6,7 @@ import IParser         from '../Parser/IParser';
 import ITask           from '../Task/ITask';
 import TDetectionMode  from '../TypeAliases/TDetectionMode';
 import TPassageIgnores from '../TypeAliases/TPassageIgnores';
+const semver = require('semver');
 class Linter implements ILinter {
   readonly parser:         IParser;
   readonly format:         string;
@@ -57,9 +58,9 @@ class Linter implements ILinter {
       const child = this.storyData.children[ii];
       const tagName = child.tagName.toLowerCase();
       let passageName;
-      if (this.version === '1') {
+      if (semver.satisfies(this.version, '1')) {
         passageName = child.getAttribute('tiddler');
-      } else if (this.version === '2') {
+      } else if (semver.satisfies(this.version, '2')) {
         passageName = child.getAttribute('name');
       }
 
@@ -69,18 +70,18 @@ class Linter implements ILinter {
       }
 
       /* Don't lint any passages that match on element tag or passage name. */
-      if (this.passageIgnores.elementTags.indexOf(tagName) === -1 ||
-          this.passageIgnores.passageNames.indexOf(passageName) === -1)
+      if (this.passageIgnores.elementTags.indexOf(tagName) !== -1 ||
+          this.passageIgnores.passageNames.indexOf(passageName) !== -1)
       {
         continue;
       }
 
       /* Don't lint any passages that match on a passage tag. */
-      const tags = child.getAttribute('tags').split(' ');
+      const tags = (child.getAttribute('tags') || '').split(' ');
       let found = false;
       for (let ii = 0; ii < tags.length; ii += 1) {
         const tag = tags[ii];
-        if (this.passageIgnores.passageTags.indexOf(tag) === -1) {
+        if (this.passageIgnores.passageTags.indexOf(tag) !== -1) {
           found = true;
           break;
         }

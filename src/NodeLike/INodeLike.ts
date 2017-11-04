@@ -36,8 +36,6 @@ interface INodeLike {
     oldChild: IChildNodeLike,
     newChild: IChildNodeLike):                      IChildNodeLike;
   
-  getDescendantNodes():                             Array<IChildNodeLike>;
-  getDescendants():                                 Array<IElementLike>;
   contains(node: IChildNodeLike):                   boolean;
   hasChildNodes():                                  boolean;
   isEqualNode(node: INodeLike):                     boolean;

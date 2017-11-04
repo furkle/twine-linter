@@ -6,8 +6,6 @@ import linterFactory     from './Linter/linterFactory';
 import parserFactory     from './Parser/parserFactory';
 import VariableUsageTask from './Task/VariableUsageTask';
 
-console.log(new DocumentLike());
-
 export default {
   documentFactory,
   DocumentLike,

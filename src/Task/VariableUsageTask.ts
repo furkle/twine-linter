@@ -49,6 +49,11 @@ class VariableUsageTask extends AbstractTask {
         }
       } else if (tagName === 'tw-variable') {
         const variableName = node.getAttribute('data-name');
+        if (!variableName) {
+          throw new Error('The data-name attribute in the tw-variable was ' +
+                          'missing.');
+        }
+
         accumulator = <TIndexableObject>accumulator;
         if (passageName in this.accumulator) {
           if (variableName in accumulator[passageName].usages) {

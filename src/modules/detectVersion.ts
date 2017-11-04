@@ -6,11 +6,11 @@ const semver = require('semver');
 function detectVersion(
   value:         IElementLike | string,
   detectionMode: TDetectionMode   = 'auto',
-  versionMap:    TIndexableObject = constants.formats): string
+  versionMap:    TIndexableObject = constants.versions): string
 {
-  let versionStr = value;
+  let versionStr: IElementLike | string | null = value;
   if (typeof value !== 'string') {
-    /* Currently only present on 2^. */
+    /* Currently only present on ^2. */
     versionStr = value.getAttribute('creator-version');
     if (!versionStr) {
       if (detectionMode === 'manual') {
@@ -18,9 +18,9 @@ function detectVersion(
                         'but there was no version attribute.');
       }
     
-      /* Only present on 1^. */
+      /* Only present on ^1. */
       if (value.getAttribute('id') === 'storeArea') {
-        versionStr = '1';
+        versionStr = '1.0.0';
       }
 
       /* No reliable information on storyData element. Check contents
@@ -29,10 +29,10 @@ function detectVersion(
         for (let ii = 0; ii < value.children.length; ii += 1) {
           const child = value.children[ii];
           if (child.getAttribute('tiddler')) {
-            versionStr = '1';
+            versionStr = '1.0.0';
             break;
           } else if (child.tagName.toLowerCase() === 'tw-passagedata') {
-            versionStr = '2';
+            versionStr = '2.0.0';
             break;
           }
         }
@@ -58,7 +58,7 @@ function detectVersion(
   let valid = false;
   for (let ii = 0; ii < keys.length; ii += 1) {
     const key = keys[ii];
-    if (semver.satisfies(key)) {
+    if (semver.satisfies(cleanVersion, key)) {
       valid = true;
       versionStr = versionMap[key];
       break;

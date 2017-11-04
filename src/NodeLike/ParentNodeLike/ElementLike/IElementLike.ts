@@ -11,11 +11,12 @@ interface IElementLike extends IParentNodeLike, INonDocumentTypeChildNodeLike {
   readonly classList:                      IClassListLike;
   readonly ownerDocument:                  IDocumentLike;
   readonly childNodes:                     Array<INonDocumentTypeChildNodeLike>;
-  hasAttribute(name: string):              boolean;
-  getAttribute(name: string):              string;
+  hasAttribute(name: string | null):       boolean;
+  getAttribute(name: string | null):       string | null;
   setAttribute(
-    name: string, value: string):          void;
-  removeAttribute(name: string):           void;
+    name: string | null,
+    value: string | null):                 void;
+  removeAttribute(name: string | null):    void;
   appendChild(
     child: INonDocumentTypeChildNodeLike): INonDocumentTypeChildNodeLike;
   removeChild(

@@ -7,6 +7,7 @@ import MChildNodeLike                from '../MChildNodeLike';
 import TConstructor                  from '../../TypeAliases/TConstructor';
 abstract class AbstractCharacterDataLike extends MChildNodeLike(<TConstructor<AbstractNodeLike>>AbstractNodeLike) implements ICharacterDataLike {
   abstract data:                            string;
+  abstract textContent:                     string;
   abstract readonly length:                 number;
   protected __ownerDocument:                IDocumentLike;
   abstract readonly ownerDocument:          IDocumentLike;
@@ -18,7 +19,6 @@ abstract class AbstractCharacterDataLike extends MChildNodeLike(<TConstructor<Ab
   abstract readonly nextElementSibling:     IElementLike | null;
   
   abstract readonly childNodes:             Array<INonDocumentTypeChildNodeLike>;
-  abstract readonly children:               Array<IElementLike>;
 
   protected __data:                         string = '';
   protected __parentNode:                   IElementLike | null = null;
@@ -112,12 +112,27 @@ abstract class AbstractCharacterDataLike extends MChildNodeLike(<TConstructor<Ab
     throw new Error('Text nodes do not support removing children.');
   }
 
-  getDescendantNodes(): Array<INonDocumentTypeChildNodeLike> {
-    return [];
+  insertBefore(
+    newNode: INonDocumentTypeChildNodeLike,
+    referenceNode: INonDocumentTypeChildNodeLike): INonDocumentTypeChildNodeLike
+  {
+    /* Get rid of VS not-used error. */newNode;referenceNode;
+    throw new Error('Character data nodes cannot have child nodes, and as ' +
+                    'such insertions cannot be performed on them.');
   }
 
-  getDescendants(): Array<IElementLike> {
-    return [];
+  replaceChild(
+    oldNode: INonDocumentTypeChildNodeLike,
+    newNode: INonDocumentTypeChildNodeLike): INonDocumentTypeChildNodeLike
+  {
+    /* Get rid of VS not-used error. */oldNode;newNode;
+    throw new Error('Character data nodes cannot have child nodes, and as ' +
+                    'such replacements cannot be performed on a child of ' +
+                    'theirs.');
+  }
+  
+  normalize(): void {
+    return;
   }
 
   __setParentNode(parent: IElementLike): IElementLike {

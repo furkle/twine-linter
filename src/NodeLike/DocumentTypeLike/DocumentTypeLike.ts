@@ -18,6 +18,10 @@ class DocumentTypeLike extends AbstractDocumentTypeLike {
     return this.__name;
   }
 
+  get textContent(): null {
+    return null;
+  }
+
   get ownerDocument(): IDocumentLike {
     return this.__ownerDocument;
   }
@@ -40,6 +44,14 @@ class DocumentTypeLike extends AbstractDocumentTypeLike {
 
   get childNodes(): Array<any> {
     return [];
+  }
+
+  get firstChild(): null {
+    return null;
+  }
+
+  get lastChild(): null {
+    return null;
   }
 
   get publicId(): '' {

@@ -11,6 +11,14 @@ class ElementLike extends AbstractElementLike {
   readonly nodeType: number = 1;
   readonly tagName:  string;
 
+  get nodeName(): string {
+    return this.tagName;
+  }
+
+  get nodeValue(): null {
+    return null;
+  }
+
   get textContent(): string {
     return this.childNodes.reduce((str: string, node: INonDocumentTypeChildNodeLike): string => {
       return str + (node.textContent || '');

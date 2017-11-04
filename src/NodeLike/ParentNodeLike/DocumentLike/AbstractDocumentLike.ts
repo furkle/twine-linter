@@ -86,31 +86,112 @@ abstract class AbstractDocumentLike extends MParentNodeLike(<TConstructor<Abstra
 
   appendChild(child: IDocumentTypeLike | IElementLike): IDocumentTypeLike | IElementLike {
     const count = this.__childNodes.count();
-    if (count === 0) {
-      super.appendChild(child);
-    } else if (count === 1) {
+    if (count === 1) {
       const firstChild = this.firstChild;
       if (isIDocumentTypeLike(firstChild)) {
         if (!isIElementLike(child)) {
-          throw new Error('Documents can only contain a root element node.');
+          throw new Error('Documents can only contain a doctype and an ' +
+                          'element node.');
         }
-        
-        super.appendChild(child);
       } else if (isIElementLike(firstChild)) {
         throw new Error('Only one element can be contained in a document.');
       } else {
         throw new Error('An unknown node type was found as a document child.');
       }
-    } else {
+    } else if (count > 1) {
       throw new Error('A document can only contain two nodes.');
     }
 
+    this.__childNodes = this.__childNodes.add(child);
     return child;
   }
 
   removeChild(child: IDocumentTypeLike | IElementLike): IDocumentTypeLike | IElementLike {
-    super.removeChild(child);
+    if (!this.__childNodes.contains(child)) {
+      throw new Error('The child argument is not a child of the document.');
+    }
+
+    this.__childNodes = this.__childNodes.remove(child);
+
     return child;
+  }
+
+  insertBefore(
+    newChild: IDocumentTypeLike,
+    referenceNode: IElementLike): IDocumentTypeLike
+  {
+    if (newChild.ownerDocument !== this.__ownerDocument) {
+      throw new Error('A node must be adopted before it can be inserted ' +
+                      'into a document.');
+    } else if (!this.__childNodes.contains(referenceNode)) {
+      throw new Error('The reference node is not a child of the parent node.');
+    } else if (isIDocumentTypeLike(this.firstChild)) {
+      throw new Error('The document already has a doctype.');
+    }
+
+    const arr: Array<IDocumentTypeLike | IElementLike> = [ newChild, ];
+    this.__childNodes = OrderedSet(arr).union(this.__childNodes);
+    return newChild;
+  }
+
+  replaceChild(
+    oldChild: IDocumentTypeLike | IElementLike,
+    newChild: IDocumentTypeLike | IElementLike): IDocumentTypeLike | IElementLike
+  {
+    if (newChild.ownerDocument !== this.__ownerDocument) {
+      throw new Error('A node must be adopted before it can be inserted ' +
+                      'into a document.');
+    } else if (!this.__childNodes.contains(oldChild)) {
+      throw new Error('The reference node is not a child of the parent node.');
+    }
+
+    let oldType;
+    if (isIDocumentTypeLike(oldChild)) {
+      oldType = 'DocumentType';
+    } else {
+      oldType = 'Element';
+    }
+
+    let newType;
+    if (isIDocumentTypeLike(newChild)) {
+      newType = 'DocumentType';
+    } else {
+      newType = 'Element';
+    }
+
+    if (oldType !== newType) {
+      if (oldType === 'DocumentType') {
+        throw new Error('A document type node cannot be replaced with an ' +
+                        'element node.');;
+      } else {
+        throw new Error('An element node cannot be replaced with a document ' +
+                        'type node.');
+      }
+    }
+
+    const func = (node: IDocumentTypeLike | IElementLike) => {
+      if (node === oldChild) {
+        return newChild;
+      } else {
+        return node;
+      }
+    };
+
+    this.__childNodes = OrderedSet(this.__childNodes.map(func));
+
+    if (oldType === 'Element') {
+      const func = (node: IElementLike) => {
+        if (node === oldChild) {
+          return newChild;
+        } else {
+          return node;
+        }
+      };
+
+      this.__children = OrderedSet<IElementLike>(this.__children.map(func));
+    }
+
+    return newChild;
   }
 
   cloneNode(deep: boolean = false): IDocumentLike {
@@ -118,7 +199,7 @@ abstract class AbstractDocumentLike extends MParentNodeLike(<TConstructor<Abstra
     const doc = new ctor();
     const childNodes = this.childNodes;
     if (deep) {
-      childNodes.forEach((node: IDocumentTypeLike | IElementLike) => {
+      childNodes.forEach((node) => {
           doc.appendChild(node.cloneNode(deep));
       });
     }

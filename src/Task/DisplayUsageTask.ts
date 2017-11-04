@@ -49,6 +49,10 @@ class DisplayUsageTask extends AbstractTask {
         }
       } else if (tagName === 'tw-link') {
         const macroPassageName = node.getAttribute('passage-name');
+        if (!macroPassageName) {
+          throw new Error('There is no passage-name on a link.');
+        }
+
         accumulator = <TIndexableObject>accumulator;
         if (passageName in this.accumulator) {
           if (macroPassageName in accumulator[passageName].links) {

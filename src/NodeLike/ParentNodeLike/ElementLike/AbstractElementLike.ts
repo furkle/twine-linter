@@ -10,6 +10,7 @@ import INonDocumentTypeChildNode from '../../INonDocumentTypeChildNodeLike';
 import isIDocumentLike           from '../../../TypeGuards/isIDocumentLike';
 import isIElementLike            from '../../../TypeGuards/isIElementLike';
 import isITextLike               from '../../../TypeGuards/isITextLike';
+import ITextLike                 from '../../CharacterDataLike/TextLike/ITextLike';
 import MChildNodeLike            from '../../MChildNodeLike';
 import MParentNodeLike           from '../MParentNodeLike';
 import TConstructor              from '../../../TypeAliases/TConstructor';
@@ -17,13 +18,17 @@ import {
   Iterable,
   Map,
   OrderedSet,
-}                                from 'immutable';
+} from 'immutable';
 abstract class AbstractElementLike extends MParentNodeLike(MChildNodeLike(<TConstructor<AbstractNodeLike>>AbstractNodeLike)) implements IElementLike {
+  abstract textContent:                     string;
+  protected __attributes:                   Map<string, IAttributeLike> = Map([]);  
   abstract readonly attributes:             object;
   abstract readonly tagName:                string;
   abstract readonly id:                     string;
   abstract readonly className:              string;
   abstract readonly classList:              IClassListLike;
+  protected __ownerDocument:                IDocumentLike;
+  abstract readonly ownerDocument:          IDocumentLike;
   abstract readonly previousSibling:        IChildNodeLike | null;
   abstract readonly nextSibling:            INonDocumentTypeChildNode | null;
   abstract readonly childNodes:             Array<INonDocumentTypeChildNode>;
@@ -32,8 +37,6 @@ abstract class AbstractElementLike extends MParentNodeLike(MChildNodeLike(<TCons
   abstract readonly previousElementSibling: IElementLike | null;
   abstract readonly nextElementSibling:     IElementLike | null;
 
-  protected __ownerDocument:                IDocumentLike;                 
-  protected __attributes:                   Map<string, IAttributeLike> = Map([]);
   protected __classList:                    IClassListLike = new ClassListLike(this);
   protected __childNodes:                   OrderedSet<INonDocumentTypeChildNode> = OrderedSet([]);
 
@@ -41,25 +44,25 @@ abstract class AbstractElementLike extends MParentNodeLike(MChildNodeLike(<TCons
     return this.__attributes.has(name);
   }
 
-  getAttribute(name: string): string {
-    const attr = this.__attributes.get(name);
+  getAttribute(name: string | null): string | null {
+    const attr = this.__attributes.get(<string>name);
     if (attr) {
       return attr.value;
     } else {
-      return '';
+      return null;
     }
   }
 
-  setAttribute(name: string, value: string): void {
-    const attribute = new AttributeLike(name, value);
-    this.__attributes = this.__attributes.set(name, attribute);
+  setAttribute(name: string | null, value: string | null): void {
+    const attribute = new AttributeLike(<string>name, <string>value);
+    this.__attributes = this.__attributes.set(<string>name, attribute);
     if (name === 'class') {
       this.__classList.pullFromParent();
     }
   }
 
-  removeAttribute(name: string): void {
-    this.__attributes = this.__attributes.remove(name);
+  removeAttribute(name: string | null): void {
+    this.__attributes = this.__attributes.remove(<string>name);
     if (name === 'class') {
       this.__classList.pullFromParent();
     }
@@ -162,22 +165,31 @@ abstract class AbstractElementLike extends MParentNodeLike(MChildNodeLike(<TCons
   }
 
   normalize(): void {
-    let buffer: string = '';
+    let buffer = '';
+    let lastSeenText: ITextLike | null = null;
     this.childNodes.forEach((node: INonDocumentTypeChildNode) => {
       if (isITextLike(node)) {
+        if (!lastSeenText) {
+          lastSeenText = node;
+        }
+
         buffer += node.data;
+        let replaced = false;
         if (!isITextLike(node.nextSibling)) {
           if (buffer) {
-            const textNode = this.ownerDocument.createTextNode(buffer);
-            this.replaceChild(node, textNode);
+            lastSeenText.data = buffer;
             buffer = '';
+            lastSeenText = null;
+            replaced = true;
           }
         }
         
-        if (node.parentNode) {
+        if (!replaced) {
           this.removeChild(node);
         }
       }
+
+      node.normalize();
     });
   }
 }

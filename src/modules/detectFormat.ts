@@ -4,7 +4,7 @@ function detectFormat(
   value:         IElementLike | string,
   detectionMode: TDetectionMode): string
 {
-  let formatStr = value;
+  let formatStr: IElementLike | string | null = value;
   if (typeof value !== 'string') {
     /* Currently only present on 2^. */
     formatStr = value.getAttribute('format');

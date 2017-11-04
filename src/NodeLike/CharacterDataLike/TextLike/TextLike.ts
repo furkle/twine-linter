@@ -107,9 +107,13 @@ class TextLike extends AbstractTextLike {
   get childNodes(): Array<any> {
     return [];
   }
+  
+  get firstChild(): null {
+    return null;
+  }
 
-  get children(): Array<any> {
-    return [];
+  get lastChild(): null {
+    return null;
   }
 }
 

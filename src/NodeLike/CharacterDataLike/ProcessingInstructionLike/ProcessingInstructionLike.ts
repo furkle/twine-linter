@@ -7,6 +7,10 @@ class ProcessingInstructionLike extends AbstractProcessingInstructionLike {
   get nodeType(): 7 {
     return 7;
   }
+
+  get nodeName(): string {
+    return this.__target;
+  }
   
   get target(): string {
     return this.__target;
@@ -120,8 +124,12 @@ class ProcessingInstructionLike extends AbstractProcessingInstructionLike {
     return [];
   }
 
-  get children(): Array<any> {
-    return [];
+  get firstChild(): null {
+    return null;
+  }
+
+  get lastChild(): null {
+    return null;
   }
 }
 

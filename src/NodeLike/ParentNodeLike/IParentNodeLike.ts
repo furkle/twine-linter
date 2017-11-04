@@ -9,6 +9,8 @@ interface IParentNodeLike extends INodeLike, IQueryable {
   readonly childElementCount:                           number;
   append(...contents: Array<IChildNodeLike | string>):  void;
   prepend(...contents: Array<IChildNodeLike | string>): void;
+  getDescendantNodes():                                 Array<IChildNodeLike>;
+  getDescendants():                                     Array<IElementLike>;
 }
 
 export default IParentNodeLike;

@@ -5,6 +5,14 @@ import IElementLike                  from '../../ParentNodeLike/ElementLike/IEle
 import INonDocumentTypeChildNodeLike from '../../INonDocumentTypeChildNodeLike';
 import isIElementLike                from '../../../TypeGuards/isIElementLike';
 class CommentLike extends AbstractCommentLike {
+  get nodeType(): 8 {
+    return 8;
+  }
+
+  get nodeName(): '#comment' {
+    return '#comment';
+  }
+
   get data(): string {
     return this.__data;
   }
@@ -109,8 +117,12 @@ class CommentLike extends AbstractCommentLike {
     return [];
   }
 
-  get children(): Array<any> {
-    return [];
+  get firstChild(): null {
+    return null;
+  }
+
+  get lastChild(): null {
+    return null;
   }
 }
 
