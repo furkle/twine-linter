@@ -1,4 +1,4 @@
-interface IAttributeLike {
+export interface IAttributeLike {
     readonly name:      string;
     readonly localName: string;
     readonly value:     string;

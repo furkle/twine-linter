@@ -23,7 +23,17 @@ class ElementLike extends AbstractElementLike {
     return this.childNodes.reduce((str: string, node: INonDocumentTypeChildNodeLike): string => {
       return str + (node.textContent || '');
     }, '');
-  };
+  }
+
+  get innerHTML(): string {
+    return this.__childNodes.reduce((str, node) => {
+      return str + node.__flushToHtml();
+    });
+  }
+
+  get outerHTML(): string {
+    return this.__flushToHtml();
+  }
 
   set textContent(content: string) {
     this.childNodes.forEach((node: INonDocumentTypeChildNodeLike) => {
@@ -152,11 +162,11 @@ class ElementLike extends AbstractElementLike {
   }
 
   get firstChild(): INonDocumentTypeChildNodeLike | null {
-    return this.__childNodes.first();
+    return this.__childNodes.first() || null;
   }
   
   get lastChild(): INonDocumentTypeChildNodeLike | null {
-    return this.__childNodes.last();
+    return this.__childNodes.last() || null;
   }
 
   get children(): Array<IElementLike> {
@@ -164,26 +174,15 @@ class ElementLike extends AbstractElementLike {
   }
 
   get firstElementChild(): IElementLike | null {
-    return this.__children.first();
+    return this.__children.first() || null;
   }
 
   get lastElementChild(): IElementLike | null {
-    return this.__children.last();
+    return this.__children.last() || null;
   }
 
   get childElementCount(): number {
     return this.children.length;
-  }
-
-  constructor(tagName: string, document: IDocumentLike) {
-    super();
-
-    if (!tagName) {
-      throw new Error('Empty tag name.');
-    }
-
-    this.tagName = tagName;
-    this.__ownerDocument = document;
   }
 }
 

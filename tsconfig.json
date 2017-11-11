@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "allowJs": true,
         "outDir": "./tsdist/",
         "lib": [
             "esnext"
@@ -8,7 +9,7 @@
         "jsx": "preserve",
         "sourceMap": true,
         "noImplicitAny": true,
-        "module": "commonjs",
+        "module": "esnext",
         "moduleResolution": "node",
         "target": "esnext",
         "noUnusedLocals": true,

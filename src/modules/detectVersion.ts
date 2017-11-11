@@ -1,25 +1,33 @@
-import constants        from '../constants';
-import IElementLike     from '../NodeLike/ParentNodeLike/ElementLike/IElementLike';
-import TDetectionMode   from '../TypeAliases/TDetectionMode';
-import TIndexableObject from '../TypeAliases/TIndexableObject';
+import {
+  DetectionModes,
+  Versions,
+} from '../constants';
+import {
+  IElementLike,
+} from '../NodeLike/ParentNodeLike/ElementLike/IElementLike';
+import {
+  TIndexableObject,
+} from '../TypeAliases/TIndexableObject';
+
 const semver = require('semver');
-function detectVersion(
+
+export function detectVersion(
   value:         IElementLike | string,
-  detectionMode: TDetectionMode   = 'auto',
-  versionMap:    TIndexableObject = constants.versions): string
+  detectionMode: DetectionModes   = DetectionModes.Manual,
+  versionMap:    TIndexableObject = Versions): string
 {
   let versionStr: IElementLike | string | null = value;
   if (typeof value !== 'string') {
     /* Currently only present on ^2. */
     versionStr = value.getAttribute('creator-version');
     if (!versionStr) {
-      if (detectionMode === 'manual') {
+      if (detectionMode === DetectionModes.Manual) {
         throw new Error('Detection mode was manual, ' +
                         'but there was no version attribute.');
       }
     
       /* Only present on ^1. */
-      if (value.getAttribute('id') === 'storeArea') {
+      if (value.id === 'storeArea') {
         versionStr = '1.0.0';
       }
 

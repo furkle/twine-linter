@@ -1,4 +1,4 @@
-interface IClassList {
+export interface IClassListLike {
     readonly length:                             number;
     readonly value:                              string;
     add(...classes: Array<string>):              void;
@@ -7,8 +7,8 @@ interface IClassList {
     toggle(...classes: Array<string>):           void;
     replace(oldClass: string, newClass: string): void;
     contains(cls: string):                       void;
-    pushToParent():                              void;
-    pullFromParent():                            void;
+    __pushToParent():                            void;
+    __pullFromParent():                          void;
 }
 
-export default IClassList;
+export default IClassListLike;

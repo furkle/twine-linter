@@ -8,8 +8,8 @@ class VariableUsageTask extends AbstractTask {
     passageName: string,
     format:      string,
     version:     string,
-    options: Array<any>): void =>
-  {
+    options:     Array<any> = [],
+  ): void => {
     /* Get rid of VS not-used errors. */format;version;options;
     if (isIElementLike(node)) {
       const tagName = node.tagName.toLowerCase();
@@ -17,9 +17,14 @@ class VariableUsageTask extends AbstractTask {
       const dataName = node.getAttribute('data-name');
       const lineNumber = node.getAttribute('data-line-number');
       const columnNumber = node.getAttribute('data-column-number');
-      if (tagName === 'tw-macro' && dataName === 'set') {
-        const elem = (node.firstElementChild || <TIndexableObject>{});
-        const variableName = elem.textContent || 'UNKNOWN';
+      if (tagName === 'tw-invocation' && dataName === 'set') {
+        const elem = node.firstElementChild || <TIndexableObject>{};
+        const variableName = elem.getAttribute('data-name');
+        if (!variableName) {
+          throw new Error('A variable was detected without a data-name ' +
+                          'attribute.');
+        }
+
         accumulator = <TIndexableObject>accumulator;
         if (passageName in this.accumulator) {
           if (variableName in accumulator[passageName]) {
@@ -38,10 +43,12 @@ class VariableUsageTask extends AbstractTask {
         } else {
           accumulator[passageName] = {
             defines: {
-              [variableName]: {
-                lineNumber,
-                columnNumber,
-              },
+              [variableName]: [
+                {
+                  lineNumber,
+                  columnNumber,
+                },
+              ],
             },
 
             usages: {},
@@ -52,6 +59,17 @@ class VariableUsageTask extends AbstractTask {
         if (!variableName) {
           throw new Error('The data-name attribute in the tw-variable was ' +
                           'missing.');
+        }
+
+        /* Skip variables contained inside set statements. */
+        if (node.parentElement &&
+          node.parentElement.tagName.toLowerCase() === 'tw-invocation' &&
+          node.nextElementSibling &&
+          node.nextElementSibling.tagName.toLowerCase() === 'tw-string' &&
+          (node.nextElementSibling.textContent === 'to' ||
+          node.nextElementSibling.textContent === '='))
+        {
+          return;
         }
 
         accumulator = <TIndexableObject>accumulator;
@@ -73,10 +91,12 @@ class VariableUsageTask extends AbstractTask {
           accumulator[passageName] = {
             defines: {},
             usages: {
-              [variableName]: {
-                lineNumber,
-                columnNumber,
-              },
+              [variableName]: [
+                {
+                  lineNumber,
+                  columnNumber,
+                },
+              ],
             },
           };
         }

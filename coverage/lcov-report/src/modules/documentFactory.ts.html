@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/modules/documentFactory.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">src/modules</a> documentFactory.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">25% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>5/20</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/7</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/2</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">26.32% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>5/19</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">import DocumentLike     from '../NodeLike/ParentNodeLike/DocumentLike/DocumentLike';
+import IDocumentLike    from '../NodeLike/ParentNodeLike/DocumentLike/IDocumentLike';
+import isIDocumentLike  from '../TypeGuards/isIDocumentLike';
+import storyDataFactory from './storyDataFactory';
+import TPassage         from '../TypeAliases/TPassage';
+const docConstruct = <span class="fstat-no" title="function not covered" >function docConstruct() { <span class="cstat-no" title="statement not covered" ></span>return new DocumentLike(); </span>};
+<span class="fstat-no" title="function not covered" >function documentFactory(</span>
+  passages:            Array&lt;TPassage&gt;,
+  documentConstructor: Function = <span class="branch-0 cbranch-no" title="branch not covered" >docConstruct)</span>: IDocumentLike
+{
+  let doc: IDocumentLike | null = <span class="cstat-no" title="statement not covered" >null;</span>
+<span class="cstat-no" title="statement not covered" >  if (documentConstructor &amp;&amp;</span>
+    typeof documentConstructor === 'function')
+  {
+<span class="cstat-no" title="statement not covered" >    doc = documentConstructor();</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!isIDocumentLike(doc)) {</span>
+<span class="cstat-no" title="statement not covered" >    throw new Error('The documentConstructor function did not create a ' +</span>
+                    'valid document.');
+  }
+&nbsp;
+  const documentElement = <span class="cstat-no" title="statement not covered" >doc.createElement('html');</span>
+<span class="cstat-no" title="statement not covered" >  doc.appendChild(documentElement);</span>
+  const head = <span class="cstat-no" title="statement not covered" >doc.createElement('head');</span>
+<span class="cstat-no" title="statement not covered" >  documentElement.appendChild(head);</span>
+  const body = <span class="cstat-no" title="statement not covered" >doc.createElement('body');</span>
+<span class="cstat-no" title="statement not covered" >  documentElement.appendChild(body);</span>
+  const storyData = <span class="cstat-no" title="statement not covered" >storyDataFactory(passages, doc);</span>
+<span class="cstat-no" title="statement not covered" >  body.appendChild(storyData);</span>
+<span class="cstat-no" title="statement not covered" >  return doc;</span>
+}
+&nbsp;
+export default documentFactory;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Nov 10 2017 04:00:11 GMT-0500 (EST)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

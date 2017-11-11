@@ -1,9 +1,26 @@
-import IChildNodeLike            from './IChildNodeLike';
-import IDocumentLike             from './ParentNodeLike/DocumentLike/IDocumentLike';
-import IElementLike              from './ParentNodeLike/ElementLike/IElementLike';
-import IParentNodeLike           from './ParentNodeLike/IParentNodeLike';
-import INonDocumentTypeChildNode from './INonDocumentTypeChildNodeLike';
-interface INodeLike {
+import {
+  IChildNodeLike,
+} from './IChildNodeLike';
+import {
+  IDocumentFragmentLike,
+} from './ParentNodeLike/DocumentFragmentLike/IDocumentFragmentLike';
+import {
+  IDocumentLike,
+} from './ParentNodeLike/DocumentLike/IDocumentLike';
+import {
+  IElementLike,
+} from './ParentNodeLike/ElementLike/IElementLike';
+import {
+  IParentNodeLike,
+} from './ParentNodeLike/IParentNodeLike';
+import {
+  INonDocumentTypeChildNodeLike,
+} from './INonDocumentTypeChildNodeLike';
+import {
+  IMatcher,
+} from '../Matcher/IMatcher';
+
+export interface INodeLike {
   textContent:                                      string | null;
   readonly nodeType:                                number;
   nodeValue:                                        string | null;
@@ -12,7 +29,7 @@ interface INodeLike {
   readonly parentNode:                              IParentNodeLike | null;
   readonly parentElement:                           IElementLike | null;
   readonly previousSibling:                         IChildNodeLike | null;
-  readonly nextSibling:                             INonDocumentTypeChildNode | null;
+  readonly nextSibling:                             INonDocumentTypeChildNodeLike | null;
   readonly childNodes:                              Array<IChildNodeLike>;
   readonly firstChild:                              IChildNodeLike | null;
   readonly lastChild:                               IChildNodeLike | null;
@@ -26,15 +43,20 @@ interface INodeLike {
   readonly DOCUMENT_FRAGMENT_NODE:                  11;
 
   cloneNode(deep: boolean):                         INodeLike;
-  appendChild(child: IChildNodeLike):               IChildNodeLike;
-  removeChild(child: IChildNodeLike):               IChildNodeLike;
+  appendChild(
+    child: IDocumentFragmentLike | IChildNodeLike): IDocumentFragmentLike | IChildNodeLike;
+  removeChild(
+    child: IDocumentFragmentLike | IChildNodeLike): IDocumentFragmentLike | IChildNodeLike;
   insertBefore(
-    newNode: IChildNodeLike | IDocumentLike,
-    referenceNode: IChildNodeLike):                 IChildNodeLike | IDocumentLike;
+    newNode: IDocumentFragmentLike |
+      IChildNodeLike,
+    referenceNode: IChildNodeLike):                 IDocumentFragmentLike | IChildNodeLike;
   
   replaceChild(
-    oldChild: IChildNodeLike,
-    newChild: IChildNodeLike):                      IChildNodeLike;
+    oldChild: IDocumentFragmentLike |
+      IChildNodeLike,
+    newChild: IDocumentFragmentLike |
+      IChildNodeLike):                              IDocumentFragmentLike | IChildNodeLike;
   
   contains(node: IChildNodeLike):                   boolean;
   hasChildNodes():                                  boolean;
@@ -47,7 +69,11 @@ interface INodeLike {
     previousSibling: IChildNodeLike | null):        IChildNodeLike | null;
   
   __setNextSibling(
-    nextSibling: INonDocumentTypeChildNode | null): INonDocumentTypeChildNode | null;
+    nextSibling: INonDocumentTypeChildNodeLike |
+      null):                                        INonDocumentTypeChildNodeLike | null;
+  
+  __getMatcher():                                   IMatcher;
+  __flushToHtml():                                  string;
 }
 
 export default INodeLike;

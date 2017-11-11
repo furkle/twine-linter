@@ -108,8 +108,11 @@ abstract class AbstractDocumentTypeLike extends MChildNodeLike(<TConstructor<Abs
   }
 
   __setPreviousSibling(previousSibling: null): null {
-    /* Get rid of VS not-used error. */previousSibling;
-    throw new Error('Document type nodes cannot have a previous sibling.');
+    if (previousSibling !== null) {
+      throw new Error('Document type nodes cannot have a previous sibling.');
+    }
+
+    return previousSibling;
   }
   
   __setNextSibling(nextSibling: IElementLike | null): IElementLike | null {

@@ -1,52 +1,83 @@
-import IChildNodeLike                from './IChildNodeLike';
-import IDocumentLike                 from './ParentNodeLike/DocumentLike/IDocumentLike';
-import IElementLike                  from './ParentNodeLike/ElementLike/IElementLike';
-import IParentNodeLike               from './ParentNodeLike/IParentNodeLike';
-import isIChildNodeLike              from '../TypeGuards/isIChildNodeLike';
-import isIDocumentLike               from '../TypeGuards/isIDocumentLike';
-import INodeLike                     from './INodeLike';
-import INonDocumentTypeChildNodeLike from './INonDocumentTypeChildNodeLike';
-import { OrderedSet, }     from 'immutable';
-abstract class AbstractNodeLike implements INodeLike {
-  abstract textContent:              string | null;
-  abstract readonly ownerDocument:   IDocumentLike | null;
-  abstract readonly parentNode:      IParentNodeLike | null;
-  abstract readonly parentElement:   IElementLike | null;
-  abstract readonly nodeType:        number;
-  abstract readonly nodeValue:       string | null;
-  abstract readonly nodeName:        string;
-  abstract readonly previousSibling: IChildNodeLike | null;
-  abstract readonly nextSibling:     INonDocumentTypeChildNodeLike | null;
-  abstract readonly childNodes:      Array<IChildNodeLike>;
-  abstract readonly firstChild:      IChildNodeLike | null;
-  abstract readonly lastChild:       IChildNodeLike | null;
+import {
+  IChildNodeLike,
+} from './IChildNodeLike';
+import {
+  IDocumentFragmentLike,
+} from './ParentNodeLike/DocumentFragmentLike/IDocumentFragmentLike';
+import {
+  IDocumentLike,
+} from './ParentNodeLike/DocumentLike/IDocumentLike';
+import {
+  IElementLike,
+} from './ParentNodeLike/ElementLike/IElementLike';
+import {
+  IParentNodeLike
+} from './ParentNodeLike/IParentNodeLike';
+import {
+  isIChildNodeLike,
+} from '../TypeGuards/isIChildNodeLike';
+import {
+  isIDocumentLike,
+} from '../TypeGuards/isIDocumentLike';
+import {
+  INodeLike,
+} from './INodeLike';
+import {
+  INonDocumentTypeChildNodeLike,
+} from './INonDocumentTypeChildNodeLike';
+import {
+  IMatcher,
+} from '../Matcher/IMatcher'
+import {
+  OrderedSet,
+} from 'immutable';
 
-  protected __ownerDocument:         IDocumentLike | null = null;
-  protected __parentNode:            IParentNodeLike | null = null;
-  protected __previousSibling:       IChildNodeLike | null = null;
-  protected __nextSibling:           INonDocumentTypeChildNodeLike | null = null;
-  protected __childNodes:            OrderedSet<IChildNodeLike> = OrderedSet([]);
+export abstract class AbstractNodeLike implements INodeLike {
+  abstract textContent:                 string | null;
+  abstract readonly ownerDocument:      IDocumentLike | null;
+  abstract readonly parentNode:         IParentNodeLike | null;
+  abstract readonly parentElement:      IElementLike | null;
+  abstract readonly nodeType:           number;
+  abstract readonly nodeValue:          string | null;
+  abstract readonly nodeName:           string;
+  abstract readonly previousSibling:    IChildNodeLike | null;
+  abstract readonly nextSibling:        INonDocumentTypeChildNodeLike | null;
+  abstract readonly childNodes:         Array<IChildNodeLike>;
+  abstract readonly firstChild:         IChildNodeLike | null;
+  abstract readonly lastChild:          IChildNodeLike | null;
 
-  abstract cloneNode(deep: boolean):               INodeLike;
-  abstract appendChild(child: IChildNodeLike):     IChildNodeLike;
+  readonly ELEMENT_NODE:                1  = 1;
+  readonly TEXT_NODE:                   3  = 3;
+  readonly PROCESSING_INSTRUCTION_NODE: 7  = 7;
+  readonly COMMENT_NODE:                8  = 8;
+  readonly DOCUMENT_NODE:               9  = 9;
+  readonly DOCUMENT_TYPE_NODE:          10 = 10;
+  readonly DOCUMENT_FRAGMENT_NODE:      11 = 11;
 
-  abstract removeChild(child: IChildNodeLike):     IChildNodeLike;
+  protected __ownerDocument:            IDocumentLike | null   = null;
+  protected __parentNode:               IParentNodeLike | null = null;
+  protected __previousSibling:          IChildNodeLike | null = null;
+  protected __nextSibling:              INonDocumentTypeChildNodeLike | null = null;
+  protected __childNodes:               OrderedSet<IChildNodeLike> = OrderedSet([]);
+
+  abstract cloneNode(deep: boolean):                INodeLike;
+  abstract appendChild(
+    child: IDocumentFragmentLike | IChildNodeLike): IDocumentFragmentLike | IChildNodeLike;
+
+  abstract removeChild(
+    child: IDocumentFragmentLike | IChildNodeLike): IDocumentFragmentLike | IChildNodeLike;
 
   abstract insertBefore(
-    newNode: IChildNodeLike,
-    referenceNode: INonDocumentTypeChildNodeLike): IChildNodeLike;
+    newNode: IDocumentFragmentLike |
+      IChildNodeLike,
+    referenceNode: INonDocumentTypeChildNodeLike):  IDocumentFragmentLike | IChildNodeLike;
 
   abstract replaceChild(
     oldNode: IChildNodeLike,
-    newNode: IChildNodeLike):                      IChildNodeLike;
+    newNode: IDocumentFragmentLike |
+      IChildNodeLike):                              IDocumentFragmentLike | IChildNodeLike;
 
-  readonly ELEMENT_NODE:                            1  = 1;
-  readonly TEXT_NODE:                               3  = 3;
-  readonly PROCESSING_INSTRUCTION_NODE:             7  = 7;
-  readonly COMMENT_NODE:                            8  = 8;
-  readonly DOCUMENT_NODE:                           9  = 9;
-  readonly DOCUMENT_TYPE_NODE:                      10 = 10;
-  readonly DOCUMENT_FRAGMENT_NODE:                  11 = 11;
+  abstract __flushToHtml():                         string;
 
   contains(node: IChildNodeLike): boolean {
     return __recurse(this, node);
@@ -62,7 +93,7 @@ abstract class AbstractNodeLike implements INodeLike {
         const childNodes: Array<IChildNodeLike> = searchNode.childNodes;
         for (let ii = 0; ii < childNodes.length; ii += 1) {
           const childNode: IChildNodeLike = childNodes[ii];
-          if (__recurse(searchNode, childNode)) {
+          if (__recurse(childNode, targetNode)) {
             return true;
           }
         }
@@ -166,6 +197,14 @@ abstract class AbstractNodeLike implements INodeLike {
 
     this.__nextSibling = nextSibling;
     return nextSibling;
+  }
+
+  __getMatcher(): IMatcher {
+    if (!this.ownerDocument) {
+      throw new Error('This node has no owner document.');
+    }
+
+    return this.ownerDocument.__getMatcher();
   }
 }
 

@@ -1,21 +1,42 @@
-import detectFormat   from '../modules/detectFormat';
-import detectVersion  from '../modules/detectVersion';
-import IElementLike   from '../NodeLike/ParentNodeLike/ElementLike/IElementLike';
-import ILinter        from './ILinter';
-import ILinterOptions from './ILinterOptions';
-import IParser        from '../Parser/IParser';
-import Linter         from './Linter';
-import parserFactory  from '../Parser/parserFactory';
-function linterFactory(
-  storyData:       IElementLike,
-  options:         ILinterOptions = {},
-  formatDetector:  Function       = detectFormat,
-  versionDetector: Function       = detectVersion): ILinter
+import {
+  Formats,
+} from '../constants';
+import {
+  detectFormat,
+} from '../modules/detectFormat';
+import {
+  detectVersion,
+} from '../modules/detectVersion';
+import {
+  IElementLike,
+} from '../NodeLike/ParentNodeLike/ElementLike/IElementLike';
+import {
+  ILinter,
+} from './ILinter';
+import {
+  ILinterOptionsArgument,
+} from './ILinterOptionsArgument';
+import {
+  IParser,
+} from '../Parser/IParser';
+import {
+  Linter,
+} from './Linter';
+import {
+  parserFactory,
+} from '../Parser/parserFactory';
+
+export function linterFactory(
+  options:         ILinterOptionsArgument = {},
+  storyData:       IElementLike,  
+  formatDetector:  Function = detectFormat,
+  versionDetector: Function = detectVersion): ILinter
 {
   let parser: IParser;
-  let format = options.format;
+  const opts = options || {};
+  let format = opts.format;
   if (!format) {
-    if (options.detectionMode === 'auto') {
+    if (opts.detectionMode === 'auto') {
       format = formatDetector(storyData);
     } else {
       throw new Error('No format was provided, but the detection mode ' +
@@ -27,11 +48,11 @@ function linterFactory(
     throw new Error('No format could be detected.');
   }
 
-  format = <string>format;
+  format = <Formats>format;
   
-  let version = options.version;
+  let version = opts.version;
   if (!version) {
-    if (options.detectionMode === 'auto') {
+    if (opts.detectionMode === 'auto') {
       version = versionDetector(storyData);
     } else {
       throw new Error('No version was provided, but the detection mode ' +
@@ -45,7 +66,11 @@ function linterFactory(
 
   version = <string>version;
   parser = parserFactory(format);
-  return new Linter(storyData, parser, format, version, options);
+  opts.format = format;
+  opts.version = version;
+  opts.detectionMode = options.detectionMode || 'manual';
+  opts.documentConstructor = options.documentConstructor;
+  return new Linter(parser, opts);
 }
 
 export default linterFactory;

@@ -1,5 +1,8 @@
-import TAbstractSyntaxContent from '../TypeAliases/TAbstractSyntaxContent';
-interface IParser {
+import {
+  TAbstractSyntaxContent,
+} from '../TypeAliases/TAbstractSyntaxContent';
+
+export interface IParser {
   parse(source: string): Array<TAbstractSyntaxContent>;
 }
 

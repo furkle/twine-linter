@@ -1,8 +1,13 @@
-import IElementLike   from '../NodeLike/ParentNodeLike/ElementLike/IElementLike';
-import TDetectionMode from '../TypeAliases/TDetectionMode';
-function detectFormat(
+import {
+  IElementLike,
+} from '../NodeLike/ParentNodeLike/ElementLike/IElementLike';
+import {
+  DetectionModes,
+} from '../constants';
+
+export function detectFormat(
   value:         IElementLike | string,
-  detectionMode: TDetectionMode): string
+  detectionMode: DetectionModes): string
 {
   let formatStr: IElementLike | string | null = value;
   if (typeof value !== 'string') {

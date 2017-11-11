@@ -261,9 +261,9 @@ arg "argument"
         return arg;
     }
 
-invocation = withBodyInvocation / withBodyInvocation
+invocation = withBodyInvocation / withoutBodyInvocation
 
-withBodyInvocation
+withoutBodyInvocation
 	= invokeOpen invokeName:invokeName ws* args:arg* invokeClose {
     	return {
             type: 'invocation',
@@ -278,7 +278,7 @@ withBodyInvocation
 	/* <<foo bar "baz", 'bux' 2>>whatever<</foo>>
      * <<foo bar "baz", 'bux' 2>>     whatever      <<        / | end      foo      >>
      */
-	= invoke:withBodyInvocation children:allGlobalTypes* invokeOpen ('/' / 'end') invokeName invokeClose {
+	= invoke:withoutBodyInvocation children:allGlobalTypes* invokeOpen ('/' / 'end') invokeName invokeClose {
 		return {
 			type: 'invocation',
 			subtype: 'withBody',
@@ -288,6 +288,6 @@ withBodyInvocation
 		};
 	}
 
-text = characters:$(!(linkOpen / elemOpenChar ('/' / elemKeyChar) / variableOpen) any)+ {
+text = characters:$(!(invokeOpen / linkOpen / elemOpenChar ('/' / elemKeyChar) / variableOpen) any)+ {
 	return characters;
 }

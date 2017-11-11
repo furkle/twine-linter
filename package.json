@@ -4,10 +4,12 @@
   "description": "A basic static analysis tool for Twine, compatible with the Sugarcane, Sugarcube, Harlowe, and Gately formats.",
   "main": "index.js",
   "scripts": {
-    "build": "node_modules/.bin/webpack -p --display-error-details",
-    "lint": "node_modules/.bin/eslint .",
-    "test": "node_modules/.bin/jest",
-    "build-parser": "node_modules/.bin/pegjs -o src/PEG/SugarParser.js src/PEG/sugar.pegjs && node_modules/.bin/pegjs -o GatelyParser.js src/PEG/gately.pegjs && node_modules/.bin/pegjs -o src/PEG/HarloweParser.js src/PEG/harlowe.pegjs"
+    "build": "webpack --display-error-details",
+    "test": "jest",
+    "test-coverage": "jest --coverage",
+    "test-watch": "jest --watch",
+    "test-coverage-watch": "jest --watch --coverage",
+    "build-parser": "pegjs -o src/PEG/HtmlParser.js src/PEG/html.pegjs && pegjs -o src/PEG/SugarParser.js src/PEG/sugar.pegjs && pegjs -o src/PEG/GatelyParser.js src/PEG/gately.pegjs && pegjs -o src/PEG/HarloweParser.js src/PEG/harlowe.pegjs"
   },
   "repository": {
     "type": "git",
@@ -31,24 +33,50 @@
   },
   "homepage": "https://github.com/furkle/twine-linter#readme",
   "devDependencies": {
-    "awesome-typescript-loader": "^3.2.3",
+    "@types/jest": "^21.1.5",
+    "@types/node": "^8.0.50",
+    "awesome-typescript-loader": "^3.3.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
-    "babel-eslint": "^8.0.1",
+    "babel-eslint": "^8.0.2",
     "babel-loader": "^7.1.2",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-typescript": "^7.0.0-beta.3",
     "jest": "^21.2.1",
-    "source-map-loader": "^0.2.2",
-    "ts-loader": "^3.1.0",
-    "typescript": "^2.5.3",
+    "less": "^2.7.3",
+    "less-loader": "^4.0.5",
+    "source-map-loader": "^0.2.3",
+    "ts-jest": "^21.2.1",
+    "typescript": "^2.6.1",
     "webpack": "^3.8.1"
   },
   "dependencies": {
-    "@types/node": "^8.0.46",
     "immutable": "^3.8.2",
     "nwmatcher": "^1.4.3",
     "pegjs": "^0.10.0",
-    "semver": "^5.4.1"
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "semver": "^5.4.1",
+    "void-elements": "^3.1.0"
+  },
+  "jest": {
+    "mapCoverage": true,
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx"
+    ],
+    "testMatch": [
+      "<rootDir>/src/**/*.test.js"
+    ],
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest",
+      "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "transformIgnorePatterns": [
+      "/node_modules/*"
+    ]
   }
 }

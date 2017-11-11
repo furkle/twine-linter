@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/NodeLike/CharacterDataLike/CommentLike/CommentLike.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../index.html">All files</a> / <a href="index.html">src/NodeLike/CharacterDataLike/CommentLike</a> CommentLike.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">6.52% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>3/46</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/12</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/19</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">6.52% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>3/46</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129</td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span></td><td class="text"><pre class="prettyprint lang-js">import AbstractCommentLike           from './AbstractCommentLike';
+import IChildNodeLike                from '../../IChildNodeLike';
+import IDocumentLike                 from '../../ParentNodeLike/DocumentLike/IDocumentLike';
+import IElementLike                  from '../../ParentNodeLike/ElementLike/IElementLike';
+import INonDocumentTypeChildNodeLike from '../../INonDocumentTypeChildNodeLike';
+import isIElementLike                from '../../../TypeGuards/isIElementLike';
+class CommentLike extends AbstractCommentLike {
+<span class="fstat-no" title="function not covered" >  get </span>nodeType(): 8 {
+<span class="cstat-no" title="statement not covered" >    return 8;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  get </span>nodeName(): '#comment' {
+<span class="cstat-no" title="statement not covered" >    return '#comment';</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  get </span>data(): string {
+<span class="cstat-no" title="statement not covered" >    return this.__data;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  set </span>data(data: string) {
+<span class="cstat-no" title="statement not covered" >    this.__data = data;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  get </span>textContent(): string {
+<span class="cstat-no" title="statement not covered" >    return this.__data;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  set </span>textContent(textContent: string) {
+<span class="cstat-no" title="statement not covered" >    this.__data = textContent;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  get </span>nodeValue(): string {
+<span class="cstat-no" title="statement not covered" >    return this.__data;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  set </span>nodeValue(value: string) {
+<span class="cstat-no" title="statement not covered" >    this.__data = value;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  get </span>length(): number {
+<span class="cstat-no" title="statement not covered" >    return this.__data.length;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  get </span>ownerDocument(): IDocumentLike {
+<span class="cstat-no" title="statement not covered" >    return this.__ownerDocument;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  get </span>parentNode(): IElementLike | null {
+<span class="cstat-no" title="statement not covered" >    return this.__parentNode;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  get </span>parentElement(): IElementLike | null {
+<span class="cstat-no" title="statement not covered" >    return this.__parentNode;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  get </span>previousSibling(): INonDocumentTypeChildNodeLike | null {
+<span class="cstat-no" title="statement not covered" >    return this.__previousSibling;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  get </span>nextSibling(): INonDocumentTypeChildNodeLike | null {
+<span class="cstat-no" title="statement not covered" >    return this.__nextSibling;</span>
+  }
+  
+<span class="fstat-no" title="function not covered" >  get </span>previousElementSibling(): IElementLike | null {
+    /* An element with no parent cannot have siblings. */
+<span class="cstat-no" title="statement not covered" >    if (!this.__parentNode) {</span>
+<span class="cstat-no" title="statement not covered" >      return null;</span>
+    }
+&nbsp;
+    let node: IChildNodeLike | null = <span class="cstat-no" title="statement not covered" >this.previousSibling;</span>
+    let counter = <span class="cstat-no" title="statement not covered" >0;</span>
+    const length = <span class="cstat-no" title="statement not covered" >this.__parentNode.childNodes.length;</span>
+<span class="cstat-no" title="statement not covered" >    while (node) {</span>
+<span class="cstat-no" title="statement not covered" >      if (counter &gt; length) {</span>
+<span class="cstat-no" title="statement not covered" >        throw new Error('Possible infinite loop detected. A previousSibling ' +</span>
+                        'property may be misset.');
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if (isIElementLike(node)) {</span>
+<span class="cstat-no" title="statement not covered" >        return node;</span>
+      }
+      
+<span class="cstat-no" title="statement not covered" >      node = node.previousSibling;</span>
+<span class="cstat-no" title="statement not covered" >      counter += 1;</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return null;</span>
+  }
+  
+<span class="fstat-no" title="function not covered" >  get </span>nextElementSibling(): IElementLike | null {
+    /* An element with no parent cannot have siblings. */
+<span class="cstat-no" title="statement not covered" >    if (!this.__parentNode) {</span>
+<span class="cstat-no" title="statement not covered" >      return null;</span>
+    }
+&nbsp;
+    let node = <span class="cstat-no" title="statement not covered" >this.nextSibling;</span>
+    let counter = <span class="cstat-no" title="statement not covered" >0;</span>
+    const length = <span class="cstat-no" title="statement not covered" >this.__parentNode.childNodes.length;</span>
+<span class="cstat-no" title="statement not covered" >    while (node) {</span>
+<span class="cstat-no" title="statement not covered" >      if (counter &gt; length) {</span>
+<span class="cstat-no" title="statement not covered" >        throw new Error('Possible infinite loop detected. A previousSibling ' +</span>
+                        'property may be misset.');
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if (isIElementLike(node)) {</span>
+<span class="cstat-no" title="statement not covered" >        return node;</span>
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      node = node.nextSibling;</span>
+<span class="cstat-no" title="statement not covered" >      counter += 1;</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return null;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  get </span>childNodes(): Array&lt;any&gt; {
+<span class="cstat-no" title="statement not covered" >    return [];</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  get </span>firstChild(): null {
+<span class="cstat-no" title="statement not covered" >    return null;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  get </span>lastChild(): null {
+<span class="cstat-no" title="statement not covered" >    return null;</span>
+  }
+}
+&nbsp;
+export default CommentLike;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Nov 10 2017 04:00:11 GMT-0500 (EST)
+</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>

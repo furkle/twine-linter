@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/NodeLike/AbstractNodeLike.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">src/NodeLike</a> AbstractNodeLike.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">5.88% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>4/68</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/40</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/13</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">5.88% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>4/68</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span></td><td class="text"><pre class="prettyprint lang-js">import IChildNodeLike                from './IChildNodeLike';
+import IDocumentFragmentLike         from './ParentNodeLike/DocumentFragmentLike/IDocumentFragmentLike';
+import IDocumentLike                 from './ParentNodeLike/DocumentLike/IDocumentLike';
+import IElementLike                  from './ParentNodeLike/ElementLike/IElementLike';
+import IParentNodeLike               from './ParentNodeLike/IParentNodeLike';
+import isIChildNodeLike              from '../TypeGuards/isIChildNodeLike';
+import isIDocumentLike               from '../TypeGuards/isIDocumentLike';
+import INodeLike                     from './INodeLike';
+import INonDocumentTypeChildNodeLike from './INonDocumentTypeChildNodeLike';
+import TMatcher                      from '../TypeAliases/TMatcher'
+import {
+  OrderedSet,
+} from 'immutable';
+<span class="fstat-no" title="function not covered" >abstract class AbstractNodeLike implements INodeLike {</span>
+  abstract textContent:                 string | null;
+  abstract readonly ownerDocument:      IDocumentLike | null;
+  abstract readonly parentNode:         IParentNodeLike | null;
+  abstract readonly parentElement:      IElementLike | null;
+  abstract readonly nodeType:           number;
+  abstract readonly nodeValue:          string | null;
+  abstract readonly nodeName:           string;
+  abstract readonly previousSibling:    IChildNodeLike | null;
+  abstract readonly nextSibling:        INonDocumentTypeChildNodeLike | null;
+  abstract readonly childNodes:         Array&lt;IChildNodeLike&gt;;
+  abstract readonly firstChild:         IChildNodeLike | null;
+  abstract readonly lastChild:          IChildNodeLike | null;
+&nbsp;
+  readonly <span class="cstat-no" title="statement not covered" >ELEMENT_NODE:                1  = 1;</span>
+  readonly <span class="cstat-no" title="statement not covered" >TEXT_NODE:                   3  = 3;</span>
+  readonly <span class="cstat-no" title="statement not covered" >PROCESSING_INSTRUCTION_NODE: 7  = 7;</span>
+  readonly <span class="cstat-no" title="statement not covered" >COMMENT_NODE:                8  = 8;</span>
+  readonly <span class="cstat-no" title="statement not covered" >DOCUMENT_NODE:               9  = 9;</span>
+  readonly <span class="cstat-no" title="statement not covered" >DOCUMENT_TYPE_NODE:          10 = 10;</span>
+  readonly <span class="cstat-no" title="statement not covered" >DOCUMENT_FRAGMENT_NODE:      11 = 11;</span>
+&nbsp;
+  protected <span class="cstat-no" title="statement not covered" >__ownerDocument:            IDocumentLike | null   = null;</span>
+  protected <span class="cstat-no" title="statement not covered" >__parentNode:               IParentNodeLike | null = null;</span>
+  protected <span class="cstat-no" title="statement not covered" >__previousSibling:          IChildNodeLike | null = null;</span>
+  protected <span class="cstat-no" title="statement not covered" >__nextSibling:              INonDocumentTypeChildNodeLike | null = null;</span>
+  protected <span class="cstat-no" title="statement not covered" >__childNodes:               OrderedSet&lt;IChildNodeLike&gt; = OrderedSet([]);</span>
+&nbsp;
+  abstract cloneNode(deep: boolean):                INodeLike;
+  abstract appendChild(
+    child: IDocumentFragmentLike | IChildNodeLike): IDocumentFragmentLike | IChildNodeLike;
+&nbsp;
+  abstract removeChild(
+    child: IDocumentFragmentLike | IChildNodeLike): IDocumentFragmentLike | IChildNodeLike;
+&nbsp;
+  abstract insertBefore(
+    newNode: IDocumentFragmentLike |
+      IChildNodeLike,
+    referenceNode: INonDocumentTypeChildNodeLike):  IDocumentFragmentLike | IChildNodeLike;
+&nbsp;
+  abstract replaceChild(
+    oldNode: IChildNodeLike,
+    newNode: IDocumentFragmentLike |
+      IChildNodeLike):                              IDocumentFragmentLike | IChildNodeLike;
+&nbsp;
+<span class="fstat-no" title="function not covered" >  contains</span>(node: IChildNodeLike): boolean {
+<span class="cstat-no" title="statement not covered" >    return __recurse(this, node);</span>
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function __recurse(</span>
+      searchNode: INodeLike,
+      targetNode: INodeLike)
+    {
+      /* In Chrome, at least, node.contains(node) is true. */
+<span class="cstat-no" title="statement not covered" >      if (searchNode === targetNode) {</span>
+<span class="cstat-no" title="statement not covered" >        return true;</span>
+      } else {
+        const childNodes: Array&lt;IChildNodeLike&gt; = <span class="cstat-no" title="statement not covered" >searchNode.childNodes;</span>
+<span class="cstat-no" title="statement not covered" >        for (let ii = 0; ii &lt; childNodes.length; ii += 1) {</span>
+          const childNode: IChildNodeLike = <span class="cstat-no" title="statement not covered" >childNodes[ii];</span>
+<span class="cstat-no" title="statement not covered" >          if (__recurse(childNode, targetNode)) {</span>
+<span class="cstat-no" title="statement not covered" >            return true;</span>
+          }
+        }
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      return false;</span>
+    }
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  hasChildNodes</span>(): boolean {
+<span class="cstat-no" title="statement not covered" >    return this.__childNodes.count() &gt; 0;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  isEqualNode</span>(node: INodeLike): boolean {
+<span class="cstat-no" title="statement not covered" >    if (node.nodeType === this.nodeType ||</span>
+        node.childNodes.length !== this.__childNodes.count())
+    {
+<span class="cstat-no" title="statement not covered" >      return false;</span>
+    }
+&nbsp;
+    const nodeChilds = <span class="cstat-no" title="statement not covered" >node.childNodes;</span>
+    let equal = <span class="cstat-no" title="statement not covered" >true;</span>
+<span class="cstat-no" title="statement not covered" >    this.__childNodes</span>
+      .entrySeq()
+      .forEach(<span class="fstat-no" title="function not covered" >(t</span>uple: Array&lt;number | IChildNodeLike&gt;) =&gt; {
+        const index = &lt;number&gt;<span class="cstat-no" title="statement not covered" >tuple[0];</span>
+<span class="cstat-no" title="statement not covered" >        if (!nodeChilds[index].isEqualNode(&lt;IChildNodeLike&gt;tuple[1])) {</span>
+<span class="cstat-no" title="statement not covered" >          equal = false;</span>
+        }
+&nbsp;
+        /* Abort early if equal is false. */
+<span class="cstat-no" title="statement not covered" >        return equal;</span>
+      });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      return equal;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  isSameNode</span>(node: INodeLike): boolean {
+<span class="cstat-no" title="statement not covered" >    return node === this;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  normalize</span>(): void {
+<span class="cstat-no" title="statement not covered" >    return;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  __setDocument</span>(document: IDocumentLike): IDocumentLike {
+<span class="cstat-no" title="statement not covered" >    if (isIDocumentLike(this)) {</span>
+<span class="cstat-no" title="statement not covered" >      throw new Error('A document cannot be owned by a document.');</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    this.__ownerDocument = document;</span>
+<span class="cstat-no" title="statement not covered" >    return document;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  __setParentNode</span>(parentNode: IParentNodeLike | null): IParentNodeLike | null {
+<span class="cstat-no" title="statement not covered" >    if (isIDocumentLike(this)) {</span>
+<span class="cstat-no" title="statement not covered" >      throw new Error('A document cannot have a parent node.');</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (parentNode) {</span>
+<span class="cstat-no" title="statement not covered" >      if ((isIDocumentLike(parentNode) &amp;&amp; parentNode !== this.__ownerDocument) ||</span>
+        (!isIDocumentLike(parentNode) &amp;&amp; parentNode.ownerDocument !== this.__ownerDocument))
+      {
+<span class="cstat-no" title="statement not covered" >        throw new Error('A node must be adopted before it can be placed in a ' +</span>
+                        'new document.');
+      } else <span class="cstat-no" title="statement not covered" >if (isIChildNodeLike(this) &amp;&amp;</span>
+        this.contains(&lt;IChildNodeLike &amp; IParentNodeLike&gt;parentNode))
+      {
+<span class="cstat-no" title="statement not covered" >        throw new Error('The intended child node is a parent of the intended ' +</span>
+                        'parent node.');
+      }
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    this.__parentNode = parentNode;</span>
+<span class="cstat-no" title="statement not covered" >    return parentNode;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  __setPreviousSibling</span>(previousSibling: IChildNodeLike | null): IChildNodeLike | null {
+<span class="cstat-no" title="statement not covered" >    if (previousSibling) {</span>
+<span class="cstat-no" title="statement not covered" >      if (previousSibling.ownerDocument !== this.ownerDocument) {</span>
+<span class="cstat-no" title="statement not covered" >        throw new Error('A node must be adopted before it can be placed in a ' +</span>
+                        'new document.');
+      } else <span class="cstat-no" title="statement not covered" >if (previousSibling.parentNode !== this.parentNode) {</span>
+<span class="cstat-no" title="statement not covered" >        throw new Error('Sibling nodes must have the same parent node.');</span>
+      }
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    this.__previousSibling = previousSibling;</span>
+<span class="cstat-no" title="statement not covered" >    return previousSibling;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  __setNextSibling</span>(nextSibling: INonDocumentTypeChildNodeLike | null): INonDocumentTypeChildNodeLike | null {
+<span class="cstat-no" title="statement not covered" >    if (nextSibling) {</span>
+<span class="cstat-no" title="statement not covered" >      if (nextSibling.ownerDocument !== this.ownerDocument) {</span>
+<span class="cstat-no" title="statement not covered" >        throw new Error('A node must be adopted before it can be placed in a ' +</span>
+                        'new document.');
+      } else <span class="cstat-no" title="statement not covered" >if (nextSibling.parentNode !== this.parentNode) {</span>
+<span class="cstat-no" title="statement not covered" >        throw new Error('Sibling nodes must have the same parent node.');</span>
+      }
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    this.__nextSibling = nextSibling;</span>
+<span class="cstat-no" title="statement not covered" >    return nextSibling;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  __getMatcher</span>(): TMatcher {
+<span class="cstat-no" title="statement not covered" >    if (!this.ownerDocument) {</span>
+<span class="cstat-no" title="statement not covered" >      throw new Error('This node has no owner document.');</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return this.ownerDocument.__getMatcher();</span>
+  }
+}
+&nbsp;
+export default AbstractNodeLike;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Nov 10 2017 04:00:11 GMT-0500 (EST)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

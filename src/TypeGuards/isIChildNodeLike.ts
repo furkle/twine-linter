@@ -1,5 +1,8 @@
-import IChildNodeLike from '../NodeLike/ParentNodeLike/ElementLike/IElementLike';
-function isIChildNodeLike(node: any): node is IChildNodeLike {
+import {
+  IChildNodeLike,
+} from '../NodeLike/IChildNodeLike';
+
+export function isIChildNodeLike(node: any): node is IChildNodeLike {
   return node && typeof node.before === 'function';
 }
 

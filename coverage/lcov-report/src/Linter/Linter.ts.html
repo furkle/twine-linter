@@ -1,0 +1,1367 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/Linter/Linter.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">src/Linter</a> Linter.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">27.66% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>52/188</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">33.62% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>39/116</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">3.45% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/29</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">27.66% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>52/188</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">import detectFormat           from '../modules/detectFormat';
+import detectVersion          from '../modules/detectVersion';
+import documentConstructor    from '../modules/documentConstructor';
+import documentFactory        from '../modules/documentFactory';
+import IDocumentLike          from '../NodeLike/ParentNodeLike/DocumentLike/IDocumentLike';
+import IElementLike           from '../NodeLike/ParentNodeLike/ElementLike/IElementLike';
+import ILinter                from './ILinter';
+import ILinterOptions         from './ILinterOptions';
+import ILinterOptionsArgument from './ILinterOptionsArgument'
+import IParser                from '../Parser/IParser';
+import isIElementLike         from '../TypeGuards/isIElementLike';
+import ITask                  from '../Task/ITask';
+import constants              from '../constants';      
+import TIndexableObject       from '../TypeAliases/TIndexableObject';
+import TPassage               from '../TypeAliases/TPassage';
+const semver = require('semver');
+class Linter implements ILinter {
+  readonly parser:  IParser;
+  readonly options: ILinterOptions;
+&nbsp;
+  constructor(
+    parser:  IParser,
+    options: ILinterOptionsArgument = {})
+  { 
+    if (!parser || typeof parser.parse !== 'function') {
+      throw new Error('The parser argument did not have a parse method.');
+    }
+&nbsp;
+    this.parser = parser;
+&nbsp;
+    if (!options || typeof options !== 'object') {
+      throw new Error('The options argument was not an object.');
+    }
+&nbsp;
+    const opts = &lt;TIndexableObject&gt;{};
+&nbsp;
+    if ('passageIgnores' in options) {
+      if (typeof options.passageIgnores !== 'object') {
+        throw new Error('The passageIgnores property of the options ' +
+                        'argument was not an object.');
+      }
+&nbsp;
+      opts.passageIgnores = options.passageIgnores;
+    } else {
+      opts.passageIgnores = constants.passageIgnores;
+    }
+&nbsp;
+    if ('detectionMode' in options) {
+      if (!options.detectionMode ||
+        typeof options.detectionMode !== 'string')
+      {
+        throw new Error('The detectionMode property of the options argument ' +
+                        'was not a string with content.');
+      }
+&nbsp;
+      const detectionMode = options.detectionMode.toLowerCase();
+      const keys = Object.keys(constants.detectionModes);
+      if (keys.indexOf(detectionMode) === -1) {
+        throw new Error('The detectionMode property of the options argument ' +
+                        'was not a recognized detection mode. Recognized modes ' +
+                        `are ${keys.join(', ')}.`);
+      }
+&nbsp;
+      opts.detectionMode = detectionMode;
+    } else {
+      opts.detectionMode = 'manual';
+    }
+&nbsp;
+    if ('format' in options) {
+      if (typeof options.format !== 'string') {
+        throw new Error('The format property of the options argument was ' +
+                        'not a string.');
+      }
+&nbsp;
+      const format = options.format.toLowerCase();
+      const keys = Object.keys(constants.formats);
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (keys.indexOf(format) === -1) {
+<span class="cstat-no" title="statement not covered" >        throw new Error('The format property of the options argument ' +</span>
+                        'was not a recognized format. Recognized formats ' +
+                        `are ${keys.join(', ')}.`);
+      }
+&nbsp;
+      opts.format = format;
+    } else {
+      if (!isIElementLike(options.storyData)) {
+        throw new Error('The options.storyData argument is not an element.');
+      }
+&nbsp;
+      opts.format = detectFormat(options.storyData, opts.detectionMode);
+    }
+&nbsp;
+    if ('version' in options) {
+      if (typeof options.version !== 'string') {
+        throw new Error('The version property of the options argument was ' +
+                        'not a string.');
+      } else if (!semver.valid(options.version)) {
+        throw new Error('The version property of the options argument was ' +
+                        'not a valid semantic version.');
+      }
+&nbsp;
+      opts.version = options.version;
+    } else {
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (!isIElementLike(options.storyData)) {
+<span class="cstat-no" title="statement not covered" >        throw new Error('The storyDataElem argument is not an element.');</span>
+      }
+&nbsp;
+      opts.version = detectVersion(options.storyData, opts.detectionMode);
+    }
+&nbsp;
+    if ('documentConstructor' in options) {
+      if (typeof options.documentConstructor !== 'function') {
+        throw new Error('The documentConstructor property of the options ' +
+                        'argument is not a function.');
+      }
+&nbsp;
+      opts.documentConstructor = options.documentConstructor;
+    } else {
+      opts.documentConstructor = documentConstructor;
+    }
+&nbsp;
+    this.options = &lt;ILinterOptions&gt;opts;
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  lint</span>(
+    storyData: IElementLike,
+    tasks: Array&lt;ITask&gt;,
+    options?: ILinterOptions): Array&lt;ITask&gt;
+  {
+<span class="cstat-no" title="statement not covered" >    if (!tasks ||</span>
+      typeof tasks !== 'object' ||
+      Number.isNaN(Number(tasks.length)) ||
+      typeof tasks.forEach !== 'function')
+    {
+<span class="cstat-no" title="statement not covered" >      throw new Error('The tasks argument was not an array.');</span>
+    } else <span class="cstat-no" title="statement not covered" >if (tasks.length &lt;= 0) {</span>
+<span class="cstat-no" title="statement not covered" >      throw new Error('No tasks were provided to the lint method.');</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    tasks.forEach(<span class="fstat-no" title="function not covered" >(t</span>ask) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      if (!task || typeof task !== 'object') {</span>
+<span class="cstat-no" title="statement not covered" >        throw new Error('One of the tasks was not an object.');</span>
+      } <span class="cstat-no" title="statement not covered" >if (typeof task.execute !== 'function' &amp;&amp;</span>
+        typeof task.executeMicrotask !== 'function')
+      {
+<span class="cstat-no" title="statement not covered" >        throw new Error('One of the tasks had neither an execute nor an ' +</span>
+                        'executeMicrotask method.');
+      }
+    });
+&nbsp;
+    let _opts: ILinterOptionsArgument;
+<span class="cstat-no" title="statement not covered" >    if (typeof options === 'undefined') {</span>
+<span class="cstat-no" title="statement not covered" >      if (!this.options || typeof options !== 'object') {</span>
+<span class="cstat-no" title="statement not covered" >        throw new Error('The options property of this Linter is not an object.');</span>
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      _opts = JSON.parse(JSON.stringify(this.options));</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      _opts = JSON.parse(JSON.stringify(options));</span>
+    }
+&nbsp;
+    const opts = &lt;ILinterOptions&gt;<span class="cstat-no" title="statement not covered" >_opts;</span>
+<span class="cstat-no" title="statement not covered" >    if (!opts.format || typeof opts.format !== 'string') {</span>
+<span class="cstat-no" title="statement not covered" >      throw new Error('The options.format property of this Linter was not a ' +</span>
+                      'string with content.');
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    opts.format = opts.format.toLowerCase();</span>
+    const keys = <span class="cstat-no" title="statement not covered" >Object.keys(constants.formats);</span>
+<span class="cstat-no" title="statement not covered" >    if (keys.indexOf(opts.format.toLowerCase()) === -1) {</span>
+<span class="cstat-no" title="statement not covered" >      throw new Error('The options.format property on this Linter is not ' +</span>
+                      'contained in constants.formats.');
+    } else <span class="cstat-no" title="statement not covered" >if (!opts.version || typeof opts.version !== 'string') {</span>
+<span class="cstat-no" title="statement not covered" >      throw new Error('The options.version property of this Linter was not ' +</span>
+                      'a string.');
+    } else <span class="cstat-no" title="statement not covered" >if (!semver.valid(opts.version)) {</span>
+<span class="cstat-no" title="statement not covered" >      throw new Error('The options.version property of this Linter was not ' +</span>
+                      'a valid semantic version.');
+    } else <span class="cstat-no" title="statement not covered" >if (typeof opts.documentConstructor !== 'function') {</span>
+<span class="cstat-no" title="statement not covered" >      throw new Error('The options.documentConstructor property on this ' +</span>
+                      'Linter was not a function.');
+    }
+    
+&nbsp;
+    const passages = <span class="cstat-no" title="statement not covered" >this.generateILStageOne(storyData, opts);</span>
+&nbsp;
+    const isolationChambers: Array&lt;IDocumentLike&gt; = <span class="cstat-no" title="statement not covered" >[];</span>
+    let len = <span class="cstat-no" title="statement not covered" >1;</span>
+<span class="cstat-no" title="statement not covered" >    if (opts.runInIsolation) {</span>
+<span class="cstat-no" title="statement not covered" >      len = tasks.length;</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    for (let ii = 0; ii &lt; len; ii += 1) {</span>
+      const doc = <span class="cstat-no" title="statement not covered" >documentFactory(</span>
+        passages,
+        opts.documentConstructor);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      isolationChambers.push(doc);</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return this.runTasks(tasks, isolationChambers, opts);</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  generateILStageOne</span>(
+    storyData: IElementLike,
+    options?:  ILinterOptions): Array&lt;TPassage&gt;
+  {
+    let opts = <span class="cstat-no" title="statement not covered" >options;</span>
+<span class="cstat-no" title="statement not covered" >    if (!isIElementLike(storyData)) {</span>
+<span class="cstat-no" title="statement not covered" >      throw new Error('The storyDataElem argument was not an element.');</span>
+    } else <span class="cstat-no" title="statement not covered" >if (typeof opts === 'undefined') {</span>
+<span class="cstat-no" title="statement not covered" >      opts = this.options;</span>
+<span class="cstat-no" title="statement not covered" >      if (!opts || typeof opts !== 'object') {</span>
+<span class="cstat-no" title="statement not covered" >        throw new Error('The options argument was not provided, and the ' +</span>
+                        'options property on this Linter was not an object.');
+      }
+    }
+&nbsp;
+    const passages: Array&lt;TPassage&gt; = <span class="cstat-no" title="statement not covered" >[];</span>
+    let counter = <span class="cstat-no" title="statement not covered" >0;</span>
+    const children = <span class="cstat-no" title="statement not covered" >storyData.children;</span>
+<span class="cstat-no" title="statement not covered" >    for (let ii = 0; ii &lt; children.length; ii += 1) {</span>
+      const child = <span class="cstat-no" title="statement not covered" >children[ii];</span>
+      const tagName = <span class="cstat-no" title="statement not covered" >child.tagName.toLowerCase();</span>
+      let passageName;
+      const version = <span class="cstat-no" title="statement not covered" >opts.version;</span>
+      let requirement = <span class="cstat-no" title="statement not covered" >'^1';</span>
+<span class="cstat-no" title="statement not covered" >      if (semver.satisfies(version, requirement)) {</span>
+<span class="cstat-no" title="statement not covered" >        passageName = child.getAttribute('tiddler');</span>
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      requirement = '^2';</span>
+<span class="cstat-no" title="statement not covered" >      if (semver.satisfies(require, '2')) {</span>
+<span class="cstat-no" title="statement not covered" >        passageName = child.getAttribute('name');</span>
+      } else {
+<span class="cstat-no" title="statement not covered" >        passageName = `UNKNOWN_${counter}`;</span>
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if (!passageName) {</span>
+<span class="cstat-no" title="statement not covered" >        throw new Error('A passage name could not be found in one of the ' +</span>
+                        'passage elements.');
+      }
+&nbsp;
+      /* Don't lint any passages that match on element tag or passage name. */
+<span class="cstat-no" title="statement not covered" >      if (this.options.passageIgnores.elementTags.indexOf(tagName) !== -1 ||</span>
+          this.options.passageIgnores.passageNames.indexOf(passageName) !== -1)
+      {
+<span class="cstat-no" title="statement not covered" >        continue;</span>
+      }
+&nbsp;
+      /* Don't lint any passages that match on a passage tag. */
+      const tags = <span class="cstat-no" title="statement not covered" >(child.getAttribute('tags') || '')</span>
+        .split(' ')
+        .filter(<span class="fstat-no" title="function not covered" >aa</span> =&gt; <span class="cstat-no" title="statement not covered" >aa)</span>;
+&nbsp;
+      let found = <span class="cstat-no" title="statement not covered" >false;</span>
+<span class="cstat-no" title="statement not covered" >      for (let ii = 0; ii &lt; tags.length; ii += 1) {</span>
+        const tag = <span class="cstat-no" title="statement not covered" >tags[ii];</span>
+<span class="cstat-no" title="statement not covered" >        if (this.options.passageIgnores.passageTags.indexOf(tag) !== -1) {</span>
+<span class="cstat-no" title="statement not covered" >          found = true;</span>
+<span class="cstat-no" title="statement not covered" >          break;</span>
+        }
+      }
+&nbsp;
+      /* Skip the passage if a tag matched an ignore rule. */
+<span class="cstat-no" title="statement not covered" >      if (found) {</span>
+<span class="cstat-no" title="statement not covered" >        continue;</span>
+      }
+&nbsp;
+      const abstractSyntaxTree = <span class="cstat-no" title="statement not covered" >this.parser.parse(child.textContent);</span>
+<span class="cstat-no" title="statement not covered" >      if (!abstractSyntaxTree || !abstractSyntaxTree.length) {</span>
+<span class="cstat-no" title="statement not covered" >        throw new Error('There is no output.');</span>
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      passages.push({</span>
+        abstractSyntaxTree,
+        passageName,
+        tags,
+      });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      counter += 1;</span>
+    }
+    
+<span class="cstat-no" title="statement not covered" >    return passages;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  generateILStageTwo</span>(passages: Array&lt;TPassage&gt;): IDocumentLike {
+<span class="cstat-no" title="statement not covered" >    return documentFactory(passages);</span>
+  }
+&nbsp;
+  protected <span class="fstat-no" title="function not covered" >runTasks</span>(
+    tasks:             Array&lt;ITask&gt;,
+    isolationChambers: Array&lt;IDocumentLike&gt;,
+    linterOptions:     ILinterOptions,
+    taskOptions:       Array&lt;any&gt; = <span class="branch-0 cbranch-no" title="branch not covered" >[])</span>: Array&lt;ITask&gt;
+  {
+<span class="cstat-no" title="statement not covered" >    if (linterOptions.runInIsolation) {</span>
+<span class="cstat-no" title="statement not covered" >      return this.runTasksInIsolation(</span>
+        tasks,
+        isolationChambers,
+        linterOptions,
+        taskOptions);
+    } else {
+<span class="cstat-no" title="statement not covered" >      return this.runTasksInParallel(</span>
+        tasks,
+        isolationChambers[0],
+        linterOptions,
+        taskOptions);
+    }
+  }
+&nbsp;
+  protected <span class="fstat-no" title="function not covered" >runTasksInParallel</span>(
+    tasks:         Array&lt;ITask&gt;,
+    document:      IDocumentLike,
+    linterOptions: ILinterOptions,
+    options:       Array&lt;any&gt; = <span class="branch-0 cbranch-no" title="branch not covered" >[])</span>: Array&lt;ITask&gt;
+  {
+<span class="cstat-no" title="statement not covered" >    tasks.forEach(<span class="fstat-no" title="function not covered" >(t</span>ask) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      task.preSetup(document, options);</span>
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    tasks.forEach(<span class="fstat-no" title="function not covered" >(t</span>ask) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      task.setup(document, options);</span>
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    tasks.forEach(<span class="fstat-no" title="function not covered" >(t</span>ask) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      task.postSetup(document, options);</span>
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    tasks.forEach(<span class="fstat-no" title="function not covered" >(t</span>ask) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      task.preExecute(document, options);</span>
+    });
+    
+    const children = <span class="cstat-no" title="statement not covered" >document.querySelector('tw-storydata').children;</span>
+<span class="cstat-no" title="statement not covered" >    for (let ii = 0; ii &lt; children.length; ii += 1) {</span>
+      const passageData = <span class="cstat-no" title="statement not covered" >children[ii];</span>
+      const passageName = <span class="cstat-no" title="statement not covered" >passageData.getAttribute('name');</span>
+      const descendants = <span class="cstat-no" title="statement not covered" >passageData.querySelectorAll('*');</span>
+<span class="cstat-no" title="statement not covered" >      for (let jj = 0; jj &lt; descendants.length; jj += 1) {</span>
+        const descendant = <span class="cstat-no" title="statement not covered" >descendants[jj];</span>
+<span class="cstat-no" title="statement not covered" >        tasks.forEach(<span class="fstat-no" title="function not covered" >(t</span>ask) =&gt; {</span>
+          (&lt;Function&gt;<span class="cstat-no" title="statement not covered" >task.executeMicrotask)(</span>
+            descendant,
+            passageName,
+            linterOptions.format,
+            linterOptions.version
+          );
+        });
+      }
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    tasks.forEach(<span class="fstat-no" title="function not covered" >(t</span>ask) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      task.postExecute(document, options);</span>
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    tasks.forEach(<span class="fstat-no" title="function not covered" >(t</span>ask) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      task.preComplete(document, options);</span>
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    tasks.forEach(<span class="fstat-no" title="function not covered" >(t</span>ask) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      task.complete(document, options);</span>
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    tasks.forEach(<span class="fstat-no" title="function not covered" >(t</span>ask) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      task.postComplete(document, options);</span>
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return tasks;</span>
+  }
+&nbsp;
+  protected <span class="fstat-no" title="function not covered" >runTasksInIsolation</span>(
+    tasks: Array&lt;ITask&gt;,
+    isolationChambers: Array&lt;IDocumentLike&gt;,
+    linterOptions: ILinterOptions,
+    options: Array&lt;any&gt; = <span class="branch-0 cbranch-no" title="branch not covered" >[])</span>: Array&lt;ITask&gt;
+  {
+<span class="cstat-no" title="statement not covered" >    tasks.forEach(<span class="fstat-no" title="function not covered" >(t</span>ask, ii) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      task.preSetup(isolationChambers[ii], options);</span>
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    tasks.forEach(<span class="fstat-no" title="function not covered" >(t</span>ask, ii) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      task.setup(isolationChambers[ii], options);</span>
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    tasks.forEach(<span class="fstat-no" title="function not covered" >(t</span>ask, ii) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      task.postSetup(isolationChambers[ii], options);</span>
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    tasks.forEach(<span class="fstat-no" title="function not covered" >(t</span>ask, ii) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      task.preExecute(isolationChambers[ii], options);</span>
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    tasks.forEach(<span class="fstat-no" title="function not covered" >(t</span>ask, ii) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      if (typeof task.execute === 'function') {</span>
+<span class="cstat-no" title="statement not covered" >        task.execute(isolationChambers[ii], options);</span>
+      } else <span class="cstat-no" title="statement not covered" >if (typeof task.executeMicrotask === 'function') {</span>
+        const doc = <span class="cstat-no" title="statement not covered" >isolationChambers[ii];</span>
+<span class="cstat-no" title="statement not covered" >        doc.querySelector('tw-storydata').children</span>
+          .forEach(<span class="fstat-no" title="function not covered" >(p</span>assageData) =&gt; {
+            const passageName = <span class="cstat-no" title="statement not covered" >passageData.getAttribute('name');</span>
+<span class="cstat-no" title="statement not covered" >            passageData.getDescendants().forEach(<span class="fstat-no" title="function not covered" >(d</span>escendant) =&gt; {</span>
+              (&lt;Function&gt;<span class="cstat-no" title="statement not covered" >task.executeMicrotask)(</span>
+                descendant,
+                passageName,
+                linterOptions.format,
+                linterOptions.version
+              )
+            });
+          });
+      } else {
+<span class="cstat-no" title="statement not covered" >        throw new Error('ITask has neither execute or executeMicrotask ' +</span>
+                        'methods.');
+      }
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    tasks.forEach(<span class="fstat-no" title="function not covered" >(t</span>ask, ii) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      task.postExecute(isolationChambers[ii], options);</span>
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    tasks.forEach(<span class="fstat-no" title="function not covered" >(t</span>ask, ii) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      task.preComplete(isolationChambers[ii], options);</span>
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    tasks.forEach(<span class="fstat-no" title="function not covered" >(t</span>ask, ii) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      task.complete(isolationChambers[ii], options);</span>
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    tasks.forEach(<span class="fstat-no" title="function not covered" >(t</span>ask, ii) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      task.postComplete(isolationChambers[ii], options);</span>
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return tasks;</span>
+  }
+};
+&nbsp;
+export default Linter;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Nov 10 2017 04:00:11 GMT-0500 (EST)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

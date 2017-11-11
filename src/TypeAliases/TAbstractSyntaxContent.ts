@@ -1,4 +1,7 @@
-import IAbstractSyntaxNode from '../Parser/IAbstractSyntaxNode';
-type TAbstractSyntaxContent = string | IAbstractSyntaxNode;
+import {
+  IAbstractSyntaxNode,
+} from '../Parser/IAbstractSyntaxNode';
+
+export type TAbstractSyntaxContent = string | IAbstractSyntaxNode;
 
 export default TAbstractSyntaxContent;

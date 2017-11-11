@@ -1,5 +1,5 @@
 import IElementLike from './ElementLike/IElementLike';
-interface IQueryable {
+export interface IQueryable {
     querySelector(selector: string):    IElementLike;
     querySelectorAll(selector: string): Array<IElementLike>;
 }

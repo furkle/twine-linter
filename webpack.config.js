@@ -16,6 +16,8 @@ module.exports = {
 
     // the name of the exported library
     library: 'TwineLinter', // string,
+
+    libraryTarget: 'commonjs',
   },
 
   resolve: {
@@ -40,17 +42,11 @@ module.exports = {
         // the loader which should be applied, it'll be resolved relative to the context
         // -loader suffix is no longer optional in webpack2 for clarity reasons
         // see webpack 1 upgrade guide
-        loader: 'babel-loader',
-        options: {
-          presets: [ 'env', ],
-        },
-      },
-
-      {
-        test: /\.(j|t)sx?$/,
-        include: [ path.resolve(__dirname, 'src'), ],
         loader: 'awesome-typescript-loader',
-        options: 'typescript',
+        query: {
+          useBabel: true,
+          useCache: true,
+        },
       },
     ],
   },

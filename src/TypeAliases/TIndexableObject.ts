@@ -1,4 +1,4 @@
-type TIndexableObject = {
+export type TIndexableObject = {
   [key: string]: any;
 };
 

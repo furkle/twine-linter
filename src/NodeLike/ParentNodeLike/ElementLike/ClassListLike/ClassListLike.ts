@@ -1,7 +1,14 @@
-import IClassListLike from './IClassListLike';
-import IElementLike from '../IElementLike';
-import { List, } from 'immutable';
-class ClassListLike implements IClassListLike {
+import {
+  IClassListLike,
+} from './IClassListLike';
+import {
+  IElementLike,
+} from '../IElementLike';
+import {
+  List,
+} from 'immutable';
+
+export class ClassListLike implements IClassListLike {
   private element: IElementLike;
   private classes: List<string>;
 
@@ -15,7 +22,7 @@ class ClassListLike implements IClassListLike {
 
   constructor(element: IElementLike) {
     this.element = element;
-    this.pullFromParent();
+    this.__pullFromParent();
   }
 
   add(...classes: Array<string>): void {
@@ -28,7 +35,7 @@ class ClassListLike implements IClassListLike {
     });
 
     if (updated) {
-      this.pushToParent();
+      this.__pushToParent();
     }
   }
 
@@ -43,7 +50,7 @@ class ClassListLike implements IClassListLike {
     });
 
     if (updated) {
-      this.pushToParent();
+      this.__pushToParent();
     }
   }
 
@@ -61,14 +68,14 @@ class ClassListLike implements IClassListLike {
       }
     });
 
-    this.pushToParent();
+    this.__pushToParent();
   }
 
   replace(oldClass: string, newClass: string): void {
     const index = this.classes.indexOf(oldClass);
     if (index !== -1) {
       this.classes = this.classes.set(index, newClass);
-      this.pushToParent();
+      this.__pushToParent();
     }
   }
 
@@ -76,11 +83,11 @@ class ClassListLike implements IClassListLike {
     return this.classes.indexOf(cls) !== -1;
   }
 
-  pushToParent(): void {
+  __pushToParent(): void {
     this.element.setAttribute('class', this.value);
   }
 
-  pullFromParent(): void {
+  __pullFromParent(): void {
     const classes = this.element.className
       /* Use the space as a delimiter. */
       .split(' ')

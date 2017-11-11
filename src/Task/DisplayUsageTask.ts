@@ -8,7 +8,7 @@ class DisplayUsageTask extends AbstractTask {
     passageName: string,
     format:      string,
     version:     string,
-    options:     Array<any>
+    options:     Array<any> = [],
   ): void => {
     /* Get rid of VS not-used errors. */format;version;options;
     if (isIElementLike(node)) {
@@ -17,7 +17,7 @@ class DisplayUsageTask extends AbstractTask {
       const dataName = node.getAttribute('data-name');
       const lineNumber = node.getAttribute('data-line-number');
       const columnNumber = node.getAttribute('data-column-number');
-      if (tagName === 'tw-macro' && dataName === 'display') {
+      if (tagName === 'tw-invocation' && dataName === 'display') {
         const elem = (node.firstElementChild || <TIndexableObject>{});
         const macroPassageName = elem.textContent || 'UNKNOWN';
         accumulator = <TIndexableObject>accumulator;

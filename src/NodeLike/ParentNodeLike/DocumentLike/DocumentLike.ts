@@ -1,14 +1,27 @@
-import AbstractDocumentLike       from './AbstractDocumentLike';
-import IDocumentTypeLike          from '../../DocumentTypeLike/IDocumentTypeLike';
-import IElementLike               from '../ElementLike/IElementLike';
-import isIDocumentTypeLike        from '../../../TypeGuards/isIDocumentTypeLike';
-class DocumentLike extends AbstractDocumentLike {
-  readonly documentElement: IElementLike;
-  readonly head:            IElementLike;
-  readonly body:            IElementLike;
+import {
+  AbstractDocumentLike,
+} from './AbstractDocumentLike';
+import {
+  IDocumentTypeLike,
+} from '../../DocumentTypeLike/IDocumentTypeLike';
+import {
+  IElementLike,
+} from '../ElementLike/IElementLike';
+import {
+  isIDocumentTypeLike,
+} from '../../../TypeGuards/isIDocumentTypeLike';
 
-  get nodeType(): 9 | 11 {
-    return this.__nodeType;
+export class DocumentLike extends AbstractDocumentLike {
+  get nodeType(): 9 {
+    return 9;
+  }
+
+  get nodeName(): '#document' {
+    return '#document';
+  }
+
+  get nodeValue(): null {
+    return null;
   }
   
   get textContent(): null {
@@ -19,6 +32,28 @@ class DocumentLike extends AbstractDocumentLike {
     const firstChild = this.childNodes[0];
     if (isIDocumentTypeLike(firstChild)) {
       return firstChild;
+    }
+
+    return null;
+  }
+
+  get documentElement(): IElementLike | null {
+    return this.firstElementChild;
+  }
+
+  get head(): IElementLike | null {
+    const docElem = this.documentElement;
+    if (docElem) {
+      return docElem.querySelector('head');
+    }
+
+    return null;
+  }
+
+  get body(): IElementLike | null {
+    const docElem = this.documentElement;
+    if (docElem) {
+      return docElem.querySelector('body');
     }
 
     return null;

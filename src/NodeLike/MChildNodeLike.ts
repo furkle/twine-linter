@@ -1,8 +1,17 @@
-import IChildNodeLike                from './IChildNodeLike';
-import INonDocumentTypeChildNodeLike from './INonDocumentTypeChildNodeLike';
-import isIChildNodeLike              from '../TypeGuards/isIChildNodeLike';
-import TConstructor                  from '../TypeAliases/TConstructor';
-function MChildNodeLike<T extends TConstructor<object>>(Base: T) {
+import {
+  IChildNodeLike,
+} from './IChildNodeLike';
+import {
+  INonDocumentTypeChildNodeLike,
+ } from './INonDocumentTypeChildNodeLike';
+import {
+  isIChildNodeLike,
+} from '../TypeGuards/isIChildNodeLike';
+import {
+  TConstructor,
+} from '../TypeAliases/TConstructor';
+
+export function MChildNodeLike<T extends TConstructor<object>>(Base: T) {
   class MChildNodeLike extends Base {
     before(...contents: Array<IChildNodeLike | string>): void {
       if (!isIChildNodeLike(this)) {
